@@ -2,19 +2,10 @@
 @import "tailwindcss";
 
 @font-face {
-  font-family: "Nohemi";
-  src: url("./assets/Nohemi-Regular.woff2") format("woff2");
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-}
-
-@font-face {
   font-family: "Nohemi:Regular";
-  src: url("./assets/Nohemi-Regular.woff2") format("woff2");
+  src: url("/fonts/Nohemi-Regular.woff2") format("woff2");
   font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
+  font-weight: 400;
 }
 
 @theme {

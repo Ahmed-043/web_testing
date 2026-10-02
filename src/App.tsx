@@ -1,36 +1,19 @@
 import { useEffect, useState } from "react"
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
-
-import logoGif from "@/assets/Logo_Animation-1.gif"
-import heroPortrait from "@/assets/27617.png"
-import heroPortraitMobile from "@/assets/46ba6.png"
-import brandMark from "@/assets/brand-mark.svg"
-import dividerMobile from "@/assets/4f230.svg"
-import dividerLeft from "@/assets/0ba35.svg"
-import sparkMarkSvg from "@/assets/ccb5e.svg"
-import aboutGridVert from "@/assets/76633.svg"
-import aboutGridHoriz from "@/assets/7b3b7.svg"
-import wordmarkFooterSvg from "@/assets/wordmark-footer.svg"
-import project08f39 from "@/assets/08f39.png"
-import projectA98da from "@/assets/a98da.png"
-import project70b4e from "@/assets/70b4e.png"
-import project104c5 from "@/assets/104c5.png"
-import project1ce5e from "@/assets/1ce5e.png"
-
 import dividerRight from "@/imports/Group_350-1.png"
 
 const projects = [
-  { src: project08f39, alt: "Geometric atrium viewed from below" },
-  { src: projectA98da, alt: "Azadi Tower in monochrome" },
-  { src: project70b4e, alt: "Sculptural modern building at night" },
-  { src: project104c5, alt: "Reflective modern architecture" },
-  { src: project1ce5e, alt: "Modern urban architecture in mist" },
+  { src: "/assets/08f39.png", alt: "Geometric atrium viewed from below" },
+  { src: "/assets/a98da.png", alt: "Azadi Tower in monochrome" },
+  { src: "/assets/70b4e.png", alt: "Sculptural modern building at night" },
+  { src: "/assets/104c5.png", alt: "Reflective modern architecture" },
+  { src: "/assets/1ce5e.png", alt: "Modern urban architecture in mist" },
 ]
 
 const services = [
-  { title: "Interior Design", image: project1ce5e },
-  { title: "Creative Direction", image: project08f39 },
-  { title: "Business Strategy", image: project104c5 },
+  { title: "Interior Design", image: "/assets/1ce5e.png" },
+  { title: "Creative Direction", image: "/assets/08f39.png" },
+  { title: "Business Strategy", image: "/assets/104c5.png" },
 ]
 
 const faqItems = [
@@ -62,7 +45,7 @@ function IntroOverlay() {
           transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
         >
           <motion.img
-            src={logoGif}
+            src="/Logo_Animation-1.gif"
             alt="The Maram"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -77,10 +60,10 @@ function IntroOverlay() {
 function Divider({ side }: { side: "left" | "right" }) {
   return (
     <div className="section-divider" aria-hidden="true">
-      <img className="section-divider__mobile" src={dividerMobile} alt="" />
+      <img className="section-divider__mobile" src="/assets/4f230.svg" alt="" />
       <img
         className={`section-divider__desktop section-divider__desktop--${side}`}
-        src={side === "left" ? dividerLeft : dividerRight}
+        src={side === "left" ? "/assets/0ba35.svg" : dividerRight}
         alt=""
       />
     </div>
@@ -90,7 +73,7 @@ function Divider({ side }: { side: "left" | "right" }) {
 function SparkMark() {
   return (
     <span className="spark-mark" aria-hidden="true">
-      <img src={sparkMarkSvg} alt="" />
+      <img src="/assets/ccb5e.svg" alt="" />
     </span>
   )
 }
@@ -107,13 +90,13 @@ function Hero() {
         animate={{ scale: 1 }}
         transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
       >
-        <source media="(max-width: 767px)" srcSet={heroPortraitMobile} />
-        <img src={heroPortrait} alt="Maram Abuznada" />
+        <source media="(max-width: 767px)" srcSet="/assets/46ba6.png" />
+        <img src="/assets/27617.png" alt="Maram Abuznada" />
       </motion.picture>
       <div className="hero__shade" />
       <nav className="nav" aria-label="Main navigation">
         <a className="nav__mark" href="#home" aria-label="The Maram home">
-          <img src={brandMark} alt="" />
+          <img src="/assets/brand-mark.svg" alt="" />
         </a>
         <div className="nav__links">
           <a href="#home">Home</a>
@@ -166,10 +149,10 @@ function About() {
     <section className="about" id="about">
       <Divider side="right" />
       <div className="about__grid" aria-hidden="true">
-        <img className="about__grid-vertical" src={aboutGridVert} alt="" />
+        <img className="about__grid-vertical" src="/assets/76633.svg" alt="" />
         <img
           className="about__grid-horizontal"
-          src={aboutGridHoriz}
+          src="/assets/7b3b7.svg"
           alt=""
         />
       </div>
@@ -334,7 +317,7 @@ function Contact() {
         <a href="mailto:abc@gmail.com">Let’s Connect</a>
       </section>
       <footer>
-        <img src={wordmarkFooterSvg} alt="The Maram" />
+        <img src="/assets/wordmark-footer.svg" alt="The Maram" />
         <div>
           <a href="#home">Home</a>
           <a href="#work">Work</a>
