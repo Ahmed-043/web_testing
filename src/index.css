@@ -1,19 +1,33 @@
-@import 'tailwindcss';
+@import url("https://api.fontshare.com/v2/css?f[]=nohemi@300,400,500&display=swap");
+@import "tailwindcss";
 
 @font-face {
-  font-family: 'Nohemi';
-  src: url('./imports/Nohemi-Regular.woff2') format('woff2');
-  font-weight: normal;
+  font-family: "Nohemi:Regular";
+  src: url("/fonts/Nohemi-Regular.woff2") format("woff2");
   font-style: normal;
-  font-display: swap;
+  font-weight: 400;
 }
 
 @theme {
   --color-evergreen: #07503a;
-  --color-snow: #F9F9F9;
-  --color-black: #000000;
-  --font-nohemi: 'Nohemi', sans-serif;
-  --font-sans: 'Nohemi', ui-sans-serif, system-ui, sans-serif;
+  --color-snow: #f9f9f9;
+  --color-accent: #46ae87;
+  --font-nohemi: "Nohemi", sans-serif;
+}
+
+:root {
+  --green: #07503a;
+  --snow: #f9f9f9;
+  --mint: #46ae87;
+  --black: #000100;
+  font-family: "Nohemi", sans-serif;
+  color: var(--black);
+  background: var(--snow);
+  font-synthesis: none;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 html {
@@ -23,61 +37,776 @@ html {
 html,
 body,
 #root {
-  height: 100%;
+  min-height: 100%;
+  margin: 0;
 }
 
 body {
-  font-family: 'Nohemi', sans-serif;
-  background: #F9F9F9;
-  color: #000000;
   overflow-x: hidden;
 }
 
-/* Alias for generated components */
-@font-face {
-  font-family: 'Nohemi:Regular';
-  src: url('./imports/Nohemi-Regular.woff2') format('woff2');
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-/* Hide scrollbar by default, show on scroll */
-::-webkit-scrollbar {
-  width: 0px;
+button {
+  font: inherit;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-/* Ghost grid pattern for Evergreen panels */
-.arch-grid {
-  background-image:
-    linear-gradient(rgba(249, 249, 249, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(249, 249, 249, 0.04) 1px, transparent 1px);
-  background-size: 80px 80px;
-}
-
-/* About section — responsive split grid */
-.about-section {
-  background-color: #F9F9F9;
-  min-height: 100vh;
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
   display: grid;
-  grid-template-columns: 55fr 45fr;
+  place-items: center;
+  overflow: hidden;
+  background: var(--green);
 }
 
-.about-image-col {
-  overflow: hidden;
+.intro img {
+  width: clamp(12.5rem, 35vw, 26.25rem);
+  height: auto;
+}
+
+.hero {
   position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  color: var(--snow);
+  background: var(--black);
+}
+
+.hero__portrait,
+.hero__shade {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero__portrait {
+  display: block;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.hero__portrait img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.hero__shade {
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.48), transparent 26%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.68), transparent 42%);
+}
+
+.nav {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(1.5rem, 3vw, 3.5rem) clamp(1.25rem, 4.5vw, 5rem);
+}
+
+.nav__mark img {
+  display: block;
+  width: clamp(2.4rem, 4vw, 4rem);
+}
+
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.7rem, 3vw, 3.4rem);
+  font-family: "Nohemi:Regular", "Nohemi", sans-serif;
+  font-size: clamp(0.8rem, 1.3vw, 1.25rem);
+}
+
+.nav__links a {
+  transition: color 180ms ease;
+}
+
+.nav__links a:hover {
+  color: var(--mint);
+}
+
+.nav__cta {
+  padding: 0.8em 1.3em;
+  background: var(--mint);
+}
+
+.nav__menu {
+  display: none;
+}
+
+.hero__disciplines {
+  position: absolute;
+  z-index: 2;
+  inset: 32% 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(3rem, 8vw, 7rem) clamp(12rem, 48vw, 42rem);
+  width: min(88%, 68rem);
+  margin: auto;
+  text-align: center;
+  font-family: "Nohemi:Regular", "Nohemi", sans-serif;
+  font-size: clamp(0.9rem, 1.75vw, 1.55rem);
+  letter-spacing: 0.1em;
+}
+
+.hero__disciplines button {
+  padding: 0;
+  border: 0;
+  color: var(--snow);
+  background: transparent;
+  opacity: 0.33;
+  cursor: pointer;
+  transition: opacity 180ms ease;
+}
+
+.hero__disciplines button.is-active {
+  opacity: 1;
+}
+
+.hero__disciplines button[data-discipline="architecture"] {
+  grid-area: 1 / 1;
+}
+
+.hero__disciplines button[data-discipline="experience"] {
+  grid-area: 1 / 2;
+}
+
+.hero__disciplines button[data-discipline="creativity"] {
+  grid-area: 2 / 1;
+}
+
+.hero__disciplines button[data-discipline="strategy"] {
+  grid-area: 2 / 2;
+}
+
+.hero__name {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  bottom: 2.5%;
+  left: 0;
+  margin: 0;
+  text-align: center;
+  font-family: "Nohemi:Regular", "Nohemi", sans-serif;
+  font-size: clamp(4.2rem, 13.5vw, 12rem);
+  line-height: 0.89;
+  letter-spacing: 0.03em;
+}
+
+.section-divider {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  pointer-events: none;
+}
+
+.section-divider img {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  display: block;
+  max-width: none;
+  transform: translate(-50%, -50%);
+}
+
+.section-divider__desktop {
+  width: 100vw;
+  height: auto;
+}
+
+.section-divider__desktop--left {
+  transform: translate(-50%, -50%) scaleX(-1) !important;
+}
+
+.section-divider__mobile {
+  display: none !important;
+}
+
+.about {
+  position: relative;
+  display: grid;
+  min-height: 52rem;
+  place-items: center;
+  padding: clamp(6rem, 12vw, 12rem) clamp(1.5rem, 12vw, 10rem);
+  background: var(--snow);
+}
+
+.about__grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  opacity: 0.04;
+  pointer-events: none;
+}
+
+.about__grid img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  max-width: none;
+}
+
+.about__grid-vertical {
+  transform: translate(-50%, -50%);
+}
+
+.about__grid-horizontal {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.about p {
+  position: relative;
+  z-index: 1;
+  max-width: 53rem;
+  margin: 0;
+  color: var(--green);
+  text-align: center;
+  font-family: "Nohemi:Regular", "Nohemi", sans-serif;
+  font-weight: 400;
+  font-size: clamp(1.15rem, 2.25vw, 2rem);
+  line-height: 1.5;
+  letter-spacing: 0.03em;
+}
+
+.projects {
+  position: relative;
+  min-height: 100svh;
+  padding: clamp(6rem, 9vw, 9rem) clamp(1.25rem, 4vw, 4.5rem) 5rem;
+  color: var(--snow);
+  background: var(--black);
+}
+
+.section-heading {
+  display: grid;
+  grid-template-columns: 0.7fr 1fr;
+  gap: 4rem;
+  align-items: end;
+  margin-bottom: clamp(3rem, 6vw, 6rem);
+}
+
+.section-heading h2,
+.services > h2,
+.testimonials > h2,
+.faq > h2 {
+  margin: 0;
+  font-family: "Nohemi", sans-serif;
+  font-size: clamp(2.6rem, 5.2vw, 4.8rem);
+  font-weight: 500;
+  line-height: 0.89;
+  letter-spacing: 0.03em;
+}
+
+.section-heading p {
+  max-width: 37rem;
+  margin: 0;
+  font-size: clamp(0.78rem, 1.1vw, 1rem);
+  line-height: 1.55;
+  letter-spacing: 0.03em;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: clamp(0.35rem, 1vw, 1rem);
+  align-items: center;
+}
+
+.project-grid figure {
+  height: clamp(15rem, 33vw, 30rem);
+  margin: 0;
+  overflow: hidden;
+}
+
+.project-grid figure:nth-child(2),
+.project-grid figure:nth-child(4) {
+  height: clamp(18rem, 38vw, 35rem);
+}
+
+.project-grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-grid figure:hover img {
+  transform: scale(1.05);
+}
+
+.text-link {
+  display: flex;
+  width: fit-content;
+  gap: 1rem;
+  align-items: center;
+  margin: 2.8rem auto 0;
+  font-size: 0.95rem;
+}
+
+.services {
+  min-height: 100svh;
+  padding: clamp(5rem, 8vw, 8rem) clamp(1.25rem, 8vw, 8rem);
+  background: var(--snow);
+}
+
+.services > h2 {
+  margin-bottom: clamp(3rem, 6vw, 6rem);
+}
+
+.service-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 37rem;
+}
+
+.service-card {
+  position: relative;
+  width: min(30%, 23rem);
+  min-width: 15rem;
+  height: clamp(25rem, 40vw, 34rem);
+  overflow: hidden;
+  color: var(--snow);
+  background: var(--black);
+}
+
+.service-card:nth-child(2) {
+  z-index: 2;
+  margin: 9rem -1rem 0;
+}
+
+.service-card:nth-child(3) {
+  margin-top: 17rem;
+}
+
+.service-card > img {
+  width: 100%;
+  height: 75%;
+  object-fit: cover;
+  filter: grayscale(1);
+}
+
+.service-card > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  padding: 1.25rem;
+}
+
+.service-card h3 {
+  max-width: 80%;
+  margin: 0;
+  font-size: clamp(1.4rem, 2.8vw, 2.5rem);
+  font-weight: 500;
+  line-height: 0.9;
+}
+
+.spark-mark {
+  display: block;
+  flex: 0 0 auto;
+}
+
+.spark-mark img {
+  display: block;
+  width: 2rem;
+  height: auto;
+}
+
+.testimonials {
+  position: relative;
+  min-height: 46rem;
+  padding: clamp(5rem, 8vw, 8rem) 0;
+  color: var(--snow);
+  background: var(--black);
+}
+
+.testimonials > h2 {
+  margin: 0 clamp(1.25rem, 8vw, 8rem) 4rem;
+}
+
+.testimonial-viewport {
+  overflow: hidden;
+  cursor: grab;
+}
+
+.testimonial-viewport:active {
+  cursor: grabbing;
+}
+
+.testimonial-track {
+  display: flex;
+  gap: 1rem;
+  width: max-content;
+  padding: 0 clamp(1.25rem, 8vw, 8rem);
+}
+
+.testimonial-card {
+  display: flex;
+  flex-direction: column;
+  width: clamp(17rem, 24vw, 22rem);
+  min-height: 25rem;
+  padding: 2rem;
+  color: var(--black);
+  background: var(--mint);
+}
+
+.testimonial-card.is-muted {
+  opacity: 0.42;
+}
+
+.testimonial-card__avatar {
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  background: rgba(249, 249, 249, 0.52);
+}
+
+.testimonial-card p {
+  margin: 3rem 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  letter-spacing: 0.03em;
+}
+
+.testimonial-card > div {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+}
+
+.testimonial-card strong {
+  font-weight: 500;
+}
+
+.testimonial-card > div span {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+}
+
+.faq {
+  position: relative;
+  min-height: 42rem;
+  padding: clamp(5rem, 8vw, 8rem) 0;
+  background: var(--snow);
+}
+
+.faq > h2 {
+  margin: 0 clamp(1.25rem, 8vw, 8rem) 4rem;
+}
+
+.faq__item {
+  border-top: 1px solid rgba(0, 1, 0, 0.45);
+}
+
+.faq__item:last-child {
+  border-bottom: 1px solid rgba(0, 1, 0, 0.45);
+}
+
+.faq__item button {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 1.25rem clamp(1.25rem, 8vw, 8rem);
+  border: 0;
+  color: var(--black);
+  text-align: left;
+  background: transparent;
+  cursor: pointer;
+}
+
+.faq__item button span:last-child {
+  color: var(--mint);
+  font-size: 1.4rem;
+}
+
+.faq__item p {
+  max-width: 49rem;
+  margin: 0;
+  overflow: hidden;
+  padding: 0 clamp(1.25rem, 8vw, 8rem) 1.4rem;
+  color: rgba(0, 1, 0, 0.65);
+  line-height: 1.6;
+}
+
+.contact {
+  display: flex;
+  min-height: 32rem;
+  flex-direction: column;
+  place-content: center;
+  align-items: center;
+  color: var(--snow);
+  text-align: center;
+  background: var(--black);
+}
+
+.contact h2 {
+  margin: 0 0 2.2rem;
+  font-size: clamp(2.8rem, 5.4vw, 5rem);
+  font-weight: 500;
+  line-height: 0.97;
+  letter-spacing: 0.03em;
+}
+
+.contact a {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.1rem;
+  color: var(--snow);
+  background: var(--mint);
+  font-size: 1.1rem;
+  transition: color 180ms ease, background 180ms ease;
+}
+
+.contact a:hover {
+  color: var(--black);
+  background: var(--snow);
+}
+
+footer {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: clamp(2rem, 8vw, 8rem);
+  align-items: center;
+  padding: 2.5rem clamp(1.25rem, 8vw, 8rem);
+  color: var(--snow);
+  background: var(--green);
+}
+
+footer > img {
+  width: 8rem;
+  height: auto;
+}
+
+footer > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.8rem;
 }
 
 @media (max-width: 767px) {
-  .about-section {
-    grid-template-columns: 1fr;
+  .nav {
+    padding: 2rem 1.5rem;
   }
 
-  .about-image-col {
-    order: -1;
-    height: 80vw;
-    min-height: 320px;
-    max-height: 70vh;
+  .nav__links {
+    display: none;
+  }
+
+  .nav__menu {
+    display: flex;
+    width: 1.9rem;
+    flex-direction: column;
+    gap: 0.28rem;
+  }
+
+  .nav__menu span {
+    height: 0.22rem;
+    border-radius: 1rem;
+    background: var(--snow);
+  }
+
+  .hero__portrait {
+    width: 100%;
+  }
+
+  .hero__portrait img {
+    object-position: 51% top;
+  }
+
+  .hero__disciplines {
+    top: 17%;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 0.3rem;
+    font-size: 1.159rem;
+    line-height: 1.16;
+    letter-spacing: 0.1em;
+  }
+
+  .hero__disciplines button {
+    width: fit-content;
+    margin: 0 auto;
+  }
+
+  .section-divider__desktop {
+    display: none !important;
+  }
+
+  .section-divider__mobile {
+    display: block !important;
+    width: 89.748rem;
+    height: auto;
+  }
+
+  .hero__name {
+    bottom: 4%;
+    font-size: clamp(3.7rem, 15vw, 5.2rem);
+    text-align: left;
+    padding-left: 1.4rem;
+  }
+
+  .about {
+    min-height: 37rem;
+    padding: 6rem 2.2rem;
+  }
+
+  .about p {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .section-heading {
+    grid-template-columns: 1fr;
+    gap: 1.7rem;
+    align-items: start;
+  }
+
+  .section-heading h2,
+  .services > h2,
+  .testimonials > h2,
+  .faq > h2 {
+    font-size: 2.55rem;
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .project-grid figure,
+  .project-grid figure:nth-child(2),
+  .project-grid figure:nth-child(4) {
+    height: 12rem;
+  }
+
+  .project-grid figure:last-child {
+    grid-column: 1 / -1;
+    width: 50%;
+    justify-self: center;
+  }
+
+  .services {
+    min-height: auto;
+    padding: 5rem 1.5rem 7rem;
+  }
+
+  .service-list {
+    min-height: 33rem;
+    align-items: flex-start;
+    padding-top: 1.5rem;
+  }
+
+  .service-card {
+    width: 38%;
+    min-width: 0;
+    height: 16rem;
+  }
+
+  .service-card:nth-child(2) {
+    margin: 5rem -0.5rem 0;
+  }
+
+  .service-card:nth-child(3) {
+    margin-top: 10rem;
+  }
+
+  .service-card > img {
+    height: 70%;
+  }
+
+  .service-card > div {
+    padding: 0.7rem;
+  }
+
+  .service-card h3 {
+    font-size: 0.9rem;
+  }
+
+  .spark-mark img {
+    width: 1.5rem;
+  }
+
+  .testimonials {
+    min-height: 37rem;
+  }
+
+  .testimonial-card {
+    width: 12.5rem;
+    min-height: 16.5rem;
+    padding: 1.2rem;
+  }
+
+  .testimonial-card__avatar {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .testimonial-card p {
+    margin: 1.5rem 0;
+    font-size: 0.65rem;
+  }
+
+  .testimonial-card strong {
+    font-size: 0.78rem;
+  }
+
+  .faq {
+    min-height: 34rem;
+  }
+
+  .faq__item button {
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    font-size: 0.75rem;
+  }
+
+  .faq__item p {
+    padding: 0 1.25rem 1rem;
+    font-size: 0.75rem;
+  }
+
+  .contact {
+    min-height: 25rem;
+  }
+
+  .contact h2 {
+    font-size: 2.6rem;
+  }
+
+  footer {
+    grid-template-columns: 1fr 1fr;
+    padding: 2rem 1.5rem;
+  }
+
+  footer > img {
+    width: 6rem;
+  }
+
+  footer > div:first-of-type {
+    display: none;
+  }
+
+  footer > div:last-child {
+    text-align: right;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }

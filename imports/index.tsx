@@ -175,12 +175,12 @@ export default function Frame() {
       <div className="absolute h-[1201.923px] left-[1409.54px] top-[1602.87px] w-[1012.451px]" data-name="Image-100.jpg 1">
         <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgImage100Jpg1} />
       </div>
-      <p className="[word-break:break-word] absolute font-['Nohemi',sans-serif] leading-[0.89] left-[calc(50%-1122.49px)] not-italic text-[#07503a] text-[184.378px] top-[1716.96px] w-[1019.324px]">Abduzanda</p>
-      <p className="[word-break:break-word] absolute font-['Nohemi',sans-serif] leading-[0.89] left-[calc(50%-1124.82px)] not-italic text-[#46ae87] text-[133.308px] top-[4404.65px] w-[838.604px]">Our Services:</p>
-      <p className="[word-break:break-word] absolute font-['Nohemi',sans-serif] leading-[0.89] left-[calc(50%-1124.82px)] not-italic text-[#07503a] text-[91.767px] top-[4772.31px] w-[577.281px]">Our Services:</p>
-      <p className="[word-break:break-word] absolute font-['Nohemi',sans-serif] leading-[0.89] left-[calc(50%-1123.68px)] not-italic text-[#07503a] text-[91.767px] top-[4934.02px] w-[577.281px]">Our Services:</p>
-      <p className="[word-break:break-word] absolute font-['Nohemi',sans-serif] leading-[0.89] left-[calc(50%-1124.82px)] not-italic text-[#07503a] text-[91.767px] top-[5095.72px] w-[577.281px]">Our Services:</p>
-      <div className="[word-break:break-word] absolute font-['Nohemi',sans-serif] h-[179.848px] leading-[0] left-[calc(50%-1131.72px)] not-italic text-[#07503a] text-[42.949px] top-[2473.51px] w-[973.415px] whitespace-pre-wrap">
+      <p className="[word-break:break-word] absolute font-['Nohemi:Regular',sans-serif] leading-[0.89] left-[calc(50%-1122.49px)] not-italic text-[#07503a] text-[184.378px] top-[1716.96px] w-[1019.324px]">Abduzanda</p>
+      <p className="[word-break:break-word] absolute font-['Nohemi:Regular',sans-serif] leading-[0.89] left-[calc(50%-1124.82px)] not-italic text-[#46ae87] text-[133.308px] top-[4404.65px] w-[838.604px]">Our Services:</p>
+      <p className="[word-break:break-word] absolute font-['Nohemi:Regular',sans-serif] leading-[0.89] left-[calc(50%-1124.82px)] not-italic text-[#07503a] text-[91.767px] top-[4772.31px] w-[577.281px]">Our Services:</p>
+      <p className="[word-break:break-word] absolute font-['Nohemi:Regular',sans-serif] leading-[0.89] left-[calc(50%-1123.68px)] not-italic text-[#07503a] text-[91.767px] top-[4934.02px] w-[577.281px]">Our Services:</p>
+      <p className="[word-break:break-word] absolute font-['Nohemi:Regular',sans-serif] leading-[0.89] left-[calc(50%-1124.82px)] not-italic text-[#07503a] text-[91.767px] top-[5095.72px] w-[577.281px]">Our Services:</p>
+      <div className="[word-break:break-word] absolute font-['Nohemi:Regular',sans-serif] h-[179.848px] leading-[0] left-[calc(50%-1131.72px)] not-italic text-[#07503a] text-[42.949px] top-[2473.51px] w-[973.415px] whitespace-pre-wrap">
         <p className="leading-[1.45] mb-0">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z</p>
         <p className="leading-[1.45]">{`1 2 3 4 5 6 7 8 9 0 -  + = ! @ $ % ^ ( ) `}</p>
       </div>
@@ -195,9 +195,9 @@ export default function Frame() {
       <Group2 />
       <Group />
       <div className="-translate-x-1/2 absolute bg-black h-[280.863px] left-1/2 rounded-[713px] top-[5902.58px] w-[1053.191px]" />
-      <p className="[word-break:break-word] absolute font-['Nohemi',sans-serif] leading-[0.89] left-[calc(50%-448.9px)] not-italic text-[#f9f9f9] text-[133.308px] top-[5999.41px] uppercase w-[897.805px]">Contact me!</p>
-      <p className="[word-break:break-word] absolute font-['Nohemi',sans-serif] leading-[0.89] left-[calc(50%+763.64px)] not-italic text-[#f9f9f9] text-[48px] top-[6390.47px] w-[377.805px]">abc@gmail.com</p>
-      <p className="[word-break:break-word] absolute font-['Nohemi',sans-serif] h-[52.305px] leading-[0.89] left-[calc(50%-1152.36px)] not-italic text-[#f9f9f9] text-[48px] top-[6390.47px] w-[449.46px]" dir="auto">
+      <p className="[word-break:break-word] absolute font-['Nohemi:Regular',sans-serif] leading-[0.89] left-[calc(50%-448.9px)] not-italic text-[#f9f9f9] text-[133.308px] top-[5999.41px] uppercase w-[897.805px]">Contact me!</p>
+      <p className="[word-break:break-word] absolute font-['Nohemi:Regular',sans-serif] leading-[0.89] left-[calc(50%+763.64px)] not-italic text-[#f9f9f9] text-[48px] top-[6390.47px] w-[377.805px]">abc@gmail.com</p>
+      <p className="[word-break:break-word] absolute font-['Nohemi:Regular',sans-serif] h-[52.305px] leading-[0.89] left-[calc(50%-1152.36px)] not-italic text-[#f9f9f9] text-[48px] top-[6390.47px] w-[449.46px]" dir="auto">
         Here Location Goes
       </p>
     </div>

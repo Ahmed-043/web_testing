@@ -6,8 +6,5 @@
   "accessibility": {
     "addBypassLinks": false,
     "ignoreReducedMotion": false
-  },
-  "customScripts": {
-    "headEnd": ""
   }
 }
