@@ -262,12 +262,12 @@ function Projects() {
           <br />
           Projects
         </h2>
-        <p>
-          I work at the intersection of architecture, strategy, creativity,
+        <p className="projects-paragraph">
+          {`         I work at the intersection of architecture, strategy, creativity,
           and human experience — turning complex founder visions
           into clear, aligned, and meaningful experiences. For ambitious
           founders and decision-makers building brands that deserve
-          to be understood, not just noticed.
+          to be understood, not just noticed.`}
         </p>
       </div>
       <div className="project-grid">
@@ -483,10 +483,6 @@ function MainFooterSection({ onNavigate }: NavProps) {
 }
 
 function ContactPage({ onNavigate }: NavProps) {
-  const footerRef = useRef(null)
-  const isFooterInView = useInView(footerRef, { amount: 0.3, once: false })
-  const [gifKey, setGifKey] = useState(0)
-
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -496,12 +492,6 @@ function ContactPage({ onNavigate }: NavProps) {
   })
   const [submitted, setSubmitted] = useState(false)
 
-  useEffect(() => {
-    if (isFooterInView) {
-      setGifKey((prev) => prev + 1)
-    }
-  }, [isFooterInView])
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setSubmitted(true)
@@ -509,178 +499,22 @@ function ContactPage({ onNavigate }: NavProps) {
   }
 
   return (
-    <>
-      <section className="contact-page" id="contact">
-        <nav className="contact-nav" aria-label="Contact navigation">
-          <a
-            className="nav__mark"
-            href="#home"
-            aria-label="The Maram home"
-            onClick={(e) => {
-              if (onNavigate) {
-                e.preventDefault()
-                onNavigate("home")
-              }
-            }}
-          >
-            <img src="/assets/brand-mark.svg" alt="" />
-          </a>
-          <div className="nav__links">
-            <a
-              href="#home"
-              onClick={(e) => {
-                if (onNavigate) {
-                  e.preventDefault()
-                  onNavigate("home")
-                }
-              }}
-            >
-              Home
-            </a>
-            <a
-              href="#work"
-              onClick={(e) => {
-                if (onNavigate) {
-                  e.preventDefault()
-                  onNavigate("home", "work")
-                }
-              }}
-            >
-              Work
-            </a>
-            <a
-              href="#contact"
-              onClick={(e) => {
-                if (onNavigate) {
-                  e.preventDefault()
-                  onNavigate("contact")
-                }
-              }}
-            >
-              Contact
-            </a>
-            <a
-              className="nav__cta"
-              href="#contact"
-              onClick={(e) => {
-                if (onNavigate) {
-                  e.preventDefault()
-                  onNavigate("contact")
-                }
-              }}
-            >
-              Sign up
-            </a>
-          </div>
-        </nav>
-
-        <div className="contact-page__content">
-          <div className="contact-page__left">
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              Let's talk<br />about your<br />project!
-            </motion.h1>
-            <div className="contact-page__spark">
-              <img src="/assets/ccb5e.svg" alt="" />
-            </div>
-          </div>
-
-          <motion.div
-            className="contact-page__right"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <form className="contact-form" onSubmit={handleSubmit}>
-              <div className="contact-form__row">
-                <div className="contact-form__field">
-                  <label htmlFor="firstName">First Name</label>
-                  <input
-                    id="firstName"
-                    type="text"
-                    value={formData.firstName}
-                    onChange={(e) =>
-                      setFormData({ ...formData, firstName: e.target.value })
-                    }
-                    required
-                  />
-                </div>
-                <div className="contact-form__field">
-                  <label htmlFor="lastName">Last Name</label>
-                  <input
-                    id="lastName"
-                    type="text"
-                    value={formData.lastName}
-                    onChange={(e) =>
-                      setFormData({ ...formData, lastName: e.target.value })
-                    }
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="contact-form__field">
-                <label htmlFor="email">Email</label>
-                <input
-                  id="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
-                  required
-                />
-              </div>
-
-              <div className="contact-form__field">
-                <label htmlFor="service">Service</label>
-                <input
-                  id="service"
-                  type="text"
-                  value={formData.service}
-                  onChange={(e) =>
-                    setFormData({ ...formData, service: e.target.value })
-                  }
-                />
-              </div>
-
-              <div className="contact-form__field">
-                <label htmlFor="projectDescription">Project Description</label>
-                <input
-                  id="projectDescription"
-                  type="text"
-                  value={formData.projectDescription}
-                  onChange={(e) =>
-                    setFormData({ ...formData, projectDescription: e.target.value })
-                  }
-                />
-              </div>
-
-              <button type="submit" className="contact-form__submit">
-                {submitted ? "Submitted!" : "Let's Connect"}
-              </button>
-            </form>
-          </motion.div>
-        </div>
-      </section>
-
-      <footer ref={footerRef}>
-        {isFooterInView ? (
-          <motion.img
-            key={gifKey}
-            src={`/Logo_Animation-1.gif?v=${gifKey}`}
-            alt="The Maram"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-          />
-        ) : (
-          <div style={{ width: "13rem", height: "4rem" }} />
-        )}
-        <div>
+    <section className="contact-page" id="contact">
+      <nav className="contact-nav" aria-label="Contact navigation">
+        <a
+          className="nav__mark"
+          href="#home"
+          aria-label="The Maram home"
+          onClick={(e) => {
+            if (onNavigate) {
+              e.preventDefault()
+              onNavigate("home")
+            }
+          }}
+        >
+          <img src="/assets/brand-mark.svg" alt="" />
+        </a>
+        <div className="nav__links">
           <a
             href="#home"
             onClick={(e) => {
@@ -714,20 +548,117 @@ function ContactPage({ onNavigate }: NavProps) {
           >
             Contact
           </a>
+          <a
+            className="nav__cta"
+            href="#contact"
+            onClick={(e) => {
+              if (onNavigate) {
+                e.preventDefault()
+                onNavigate("contact")
+              }
+            }}
+          >
+            Sign up
+          </a>
         </div>
-        <div>
-          <a href="mailto:abc@gmail.com">abc@gmail.com</a>
-          <span>Here Location Goes</span>
+      </nav>
+
+      <div className="contact-page__content">
+        <div className="contact-page__left">
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            Let's talk<br />about your<br />project!
+          </motion.h1>
+          <div className="contact-page__divider-wrap" aria-hidden="true">
+            <img src="/assets/0ba35.svg" alt="" />
+          </div>
         </div>
-      </footer>
-    </>
+
+        <motion.div
+          className="contact-page__right"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <form className="contact-form" onSubmit={handleSubmit}>
+            <div className="contact-form__row">
+              <div className="contact-form__field">
+                <label htmlFor="firstName">First Name</label>
+                <input
+                  id="firstName"
+                  type="text"
+                  value={formData.firstName}
+                  onChange={(e) =>
+                    setFormData({ ...formData, firstName: e.target.value })
+                  }
+                  required
+                />
+              </div>
+              <div className="contact-form__field">
+                <label htmlFor="lastName">Last Name</label>
+                <input
+                  id="lastName"
+                  type="text"
+                  value={formData.lastName}
+                  onChange={(e) =>
+                    setFormData({ ...formData, lastName: e.target.value })
+                  }
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="contact-form__field">
+              <label htmlFor="email">Email</label>
+              <input
+                id="email"
+                type="email"
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
+                required
+              />
+            </div>
+
+            <div className="contact-form__field">
+              <label htmlFor="service">Service</label>
+              <input
+                id="service"
+                type="text"
+                value={formData.service}
+                onChange={(e) =>
+                  setFormData({ ...formData, service: e.target.value })
+                }
+              />
+            </div>
+
+            <div className="contact-form__field">
+              <label htmlFor="projectDescription">Project Description</label>
+              <input
+                id="projectDescription"
+                type="text"
+                value={formData.projectDescription}
+                onChange={(e) =>
+                  setFormData({ ...formData, projectDescription: e.target.value })
+                }
+              />
+            </div>
+
+            <button type="submit" className="contact-form__submit">
+              {submitted ? "Submitted!" : "Let's Connect"}
+            </button>
+          </form>
+        </motion.div>
+      </div>
+    </section>
   )
 }
 
 function MobileContactPage({ onNavigate }: NavProps) {
-  const mFooterRef = useRef(null)
-  const isMFooterInView = useInView(mFooterRef, { amount: 0.3, once: false })
-  const [mGifKey, setMGifKey] = useState(0)
   const [menuOpen, setMenuOpen] = useState(false)
   const [mFormData, setMFormData] = useState({
     firstName: "",
@@ -737,12 +668,6 @@ function MobileContactPage({ onNavigate }: NavProps) {
     projectDescription: "",
   })
   const [mSubmitted, setMSubmitted] = useState(false)
-
-  useEffect(() => {
-    if (isMFooterInView) {
-      setMGifKey((prev) => prev + 1)
-    }
-  }, [isMFooterInView])
 
   const handleMSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -931,25 +856,6 @@ function MobileContactPage({ onNavigate }: NavProps) {
           <img src="/assets/ccb5e.svg" alt="" />
         </div>
       </section>
-
-      <footer className="m-footer" ref={mFooterRef}>
-        {isMFooterInView ? (
-          <motion.img
-            key={mGifKey}
-            src={`/Logo_Animation-1.gif?v=${mGifKey}`}
-            alt="The Maram"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-          />
-        ) : (
-          <div style={{ width: "8.5rem", height: "3rem" }} />
-        )}
-        <div>
-          <a href="mailto:abc@gmail.com">abc@gmail.com</a>
-          <span>Here Location Goes</span>
-        </div>
-      </footer>
     </div>
   )
 }
@@ -1099,7 +1005,7 @@ function MobilePage({ onNavigate }: NavProps) {
           viewport={{ once: false }}
           transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
         >
-          Abduzanda
+          Abuzanda
         </motion.p>
       </section>
 

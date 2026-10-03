@@ -344,12 +344,17 @@ button {
 
 .section-heading p {
   position: relative;
-  top: clamp(1.5rem, 3vw, 3.5rem);
+  top: clamp(1rem, 2vw, 3rem);
   max-width: 37rem;
   margin: 0;
   font-size: clamp(1rem, 1.6vw, 1.25rem);
   line-height: 1.55;
   letter-spacing: 0.03em;
+}
+
+.projects-paragraph {
+  white-space: pre;
+  margin-left: clamp(2rem, 5vw, 6rem);
 }
 
 .project-grid {
@@ -400,7 +405,7 @@ button {
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.25);
   color: var(--snow);
-  font-size: 0.85rem;
+  font-size: 1.2rem;
   font-weight: 400;
   letter-spacing: 0.05em;
   text-decoration: none;
@@ -413,7 +418,7 @@ button {
 }
 
 .services {
-  min-height: 130vh;
+  min-height: 140vh;
   padding: clamp(6rem, 10vw, 9rem) clamp(1.25rem, 8vw, 8rem) clamp(3rem, 5.5vw, 5rem);
   background: var(--snow);
 }
@@ -443,16 +448,16 @@ button {
 }
 
 .service-card:nth-child(1) {
-  margin-top: 2rem;
+  margin-top: 5rem;
 }
 
 .service-card:nth-child(2) {
   z-index: 2;
-  margin-top: 6.5rem;
+  margin-top: 10rem;
 }
 
 .service-card:nth-child(3) {
-  margin-top: 12.5rem;
+  margin-top: 15rem;
 }
 
 .service-card > img {
@@ -673,7 +678,7 @@ button {
 /* Contact Page (Desktop - Matching Figma) */
 .contact-page {
   position: relative;
-  min-height: 100vh;
+  height: 100vh;
   background: var(--green);
   color: var(--snow);
   display: flex;
@@ -699,15 +704,17 @@ button {
 }
 
 .contact-page__left {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  min-height: 26rem;
+  min-height: 28rem;
 }
 
 .contact-page__left h1 {
-  margin: 0;
+  margin-top: 5rem;
+  margin-bottom: auto;
   font-family: "Nohemi", sans-serif;
   font-size: clamp(3.2rem, 5.8vw, 5.8rem);
   font-weight: 500;
@@ -716,16 +723,23 @@ button {
   color: var(--snow);
 }
 
-.contact-page__spark {
-  margin-top: auto;
-  padding-top: 2rem;
-  width: clamp(10rem, 16vw, 16rem);
-  transform: translateX(-1rem);
+.contact-page__divider-wrap {
+  position: relative;
+  margin-top: 1rem;
+  margin-left: clamp(2rem, 6vw, 6rem);
+  top: clamp(1rem, 2vw, 2.5rem);
+  width: clamp(18rem, 24vw, 24rem);
+  height: clamp(10.5rem, 13.5vw, 13.5rem);
+  overflow: hidden;
 }
 
-.contact-page__spark img {
-  width: 100%;
+.contact-page__divider-wrap img {
+  display: block;
+  width: clamp(38rem, 62, 70rem);
   height: auto;
+  max-width: none;
+  transform: rotate(-90deg) translateX(-100%);
+  transform-origin: 0 0;
 }
 
 .contact-form {
