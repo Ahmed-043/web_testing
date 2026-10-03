@@ -89,9 +89,25 @@ function SparkMark() {
   )
 }
 
-function Hero() {
-  const [activeDiscipline, setActiveDiscipline] = useState("Experience")
-  const disciplines = ["Strategy", "Experience", "Architecture", "Creativity"]
+const disciplines = ["Strategy", "Experience", "Architecture", "Creativity"]
+
+interface NavProps {
+  onNavigate?: (page: "home" | "contact", sectionId?: string) => void
+}
+
+function Hero({ onNavigate }: NavProps) {
+  const [activeDisciplineIndex, setActiveDisciplineIndex] = useState(0)
+  const [isHovered, setIsHovered] = useState(false)
+
+  useEffect(() => {
+    if (isHovered) return
+
+    const interval = setInterval(() => {
+      setActiveDisciplineIndex((prev) => (prev + 1) % disciplines.length)
+    }, 2000)
+
+    return () => clearInterval(interval)
+  }, [isHovered])
 
   return (
     <section className="hero" id="home">
@@ -106,14 +122,63 @@ function Hero() {
       </motion.picture>
       <div className="hero__shade" />
       <nav className="nav" aria-label="Main navigation">
-        <a className="nav__mark" href="#home" aria-label="The Maram home">
+        <a
+          className="nav__mark"
+          href="#home"
+          aria-label="The Maram home"
+          onClick={(e) => {
+            if (onNavigate) {
+              e.preventDefault()
+              onNavigate("home", "home")
+            }
+          }}
+        >
           <img src="/assets/brand-mark.svg" alt="" />
         </a>
         <div className="nav__links">
-          <a href="#home">Home</a>
-          <a href="#work">Work</a>
-          <a href="#about">About</a>
-          <a className="nav__cta" href="#contact">
+          <a
+            href="#home"
+            onClick={(e) => {
+              if (onNavigate) {
+                e.preventDefault()
+                onNavigate("home", "home")
+              }
+            }}
+          >
+            Home
+          </a>
+          <a
+            href="#work"
+            onClick={(e) => {
+              if (onNavigate) {
+                e.preventDefault()
+                onNavigate("home", "work")
+              }
+            }}
+          >
+            Work
+          </a>
+          <a
+            href="#contact"
+            onClick={(e) => {
+              if (onNavigate) {
+                e.preventDefault()
+                onNavigate("contact")
+              }
+            }}
+          >
+            Contact
+          </a>
+          <a
+            className="nav__cta"
+            href="#contact"
+            onClick={(e) => {
+              if (onNavigate) {
+                e.preventDefault()
+                onNavigate("contact")
+              }
+            }}
+          >
             Sign up
           </a>
         </div>
@@ -127,17 +192,22 @@ function Hero() {
       <div
         className="hero__disciplines"
         aria-label="Maram's disciplines"
-        onMouseLeave={() => setActiveDiscipline("Experience")}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
-        {disciplines.map((discipline) => (
+        {disciplines.map((discipline, index) => (
           <button
-            className={activeDiscipline === discipline ? "is-active" : ""}
+            className={activeDisciplineIndex === index ? "is-active" : ""}
             data-discipline={discipline.toLowerCase()}
             key={discipline}
             type="button"
-            onFocus={() => setActiveDiscipline(discipline)}
-            onMouseEnter={() => setActiveDiscipline(discipline)}
-            onClick={() => setActiveDiscipline(discipline)}
+            onFocus={() => {
+              setIsHovered(true)
+              setActiveDisciplineIndex(index)
+            }}
+            onBlur={() => setIsHovered(false)}
+            onMouseEnter={() => setActiveDisciplineIndex(index)}
+            onClick={() => setActiveDisciplineIndex(index)}
           >
             {discipline}
           </button>
@@ -149,7 +219,7 @@ function Hero() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.25, duration: 1, ease: [0.16, 1, 0.3, 1] }}
       >
-        Abduzanda
+        Abuzanda
       </motion.p>
     </section>
   )
@@ -314,7 +384,7 @@ function FAQ() {
   )
 }
 
-function Contact() {
+function MainFooterSection({ onNavigate }: NavProps) {
   const footerRef = useRef(null)
   const isFooterInView = useInView(footerRef, { amount: 0.3, once: false })
   const [gifKey, setGifKey] = useState(0)
@@ -327,7 +397,7 @@ function Contact() {
 
   return (
     <>
-      <section className="contact" id="contact">
+      <section className="contact" id="main-contact">
         <motion.h2
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -340,7 +410,13 @@ function Contact() {
         </motion.h2>
 
         <motion.a
-          href="mailto:abc@gmail.com"
+          href="#contact"
+          onClick={(e) => {
+            if (onNavigate) {
+              e.preventDefault()
+              onNavigate("contact")
+            }
+          }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false }}
@@ -363,9 +439,39 @@ function Contact() {
           <div style={{ width: "13rem", height: "4rem" }} />
         )}
         <div>
-          <a href="#home">Home</a>
-          <a href="#work">Work</a>
-          <a href="#about">About</a>
+          <a
+            href="#home"
+            onClick={(e) => {
+              if (onNavigate) {
+                e.preventDefault()
+                onNavigate("home")
+              }
+            }}
+          >
+            Home
+          </a>
+          <a
+            href="#work"
+            onClick={(e) => {
+              if (onNavigate) {
+                e.preventDefault()
+                onNavigate("home", "work")
+              }
+            }}
+          >
+            Work
+          </a>
+          <a
+            href="#contact"
+            onClick={(e) => {
+              if (onNavigate) {
+                e.preventDefault()
+                onNavigate("contact")
+              }
+            }}
+          >
+            Contact
+          </a>
         </div>
         <div>
           <a href="mailto:abc@gmail.com">abc@gmail.com</a>
@@ -376,11 +482,493 @@ function Contact() {
   )
 }
 
-function MobilePage() {
+function ContactPage({ onNavigate }: NavProps) {
+  const footerRef = useRef(null)
+  const isFooterInView = useInView(footerRef, { amount: 0.3, once: false })
+  const [gifKey, setGifKey] = useState(0)
+
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    service: "",
+    projectDescription: "",
+  })
+  const [submitted, setSubmitted] = useState(false)
+
+  useEffect(() => {
+    if (isFooterInView) {
+      setGifKey((prev) => prev + 1)
+    }
+  }, [isFooterInView])
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    setSubmitted(true)
+    setTimeout(() => setSubmitted(false), 3000)
+  }
+
+  return (
+    <>
+      <section className="contact-page" id="contact">
+        <nav className="contact-nav" aria-label="Contact navigation">
+          <a
+            className="nav__mark"
+            href="#home"
+            aria-label="The Maram home"
+            onClick={(e) => {
+              if (onNavigate) {
+                e.preventDefault()
+                onNavigate("home")
+              }
+            }}
+          >
+            <img src="/assets/brand-mark.svg" alt="" />
+          </a>
+          <div className="nav__links">
+            <a
+              href="#home"
+              onClick={(e) => {
+                if (onNavigate) {
+                  e.preventDefault()
+                  onNavigate("home")
+                }
+              }}
+            >
+              Home
+            </a>
+            <a
+              href="#work"
+              onClick={(e) => {
+                if (onNavigate) {
+                  e.preventDefault()
+                  onNavigate("home", "work")
+                }
+              }}
+            >
+              Work
+            </a>
+            <a
+              href="#contact"
+              onClick={(e) => {
+                if (onNavigate) {
+                  e.preventDefault()
+                  onNavigate("contact")
+                }
+              }}
+            >
+              Contact
+            </a>
+            <a
+              className="nav__cta"
+              href="#contact"
+              onClick={(e) => {
+                if (onNavigate) {
+                  e.preventDefault()
+                  onNavigate("contact")
+                }
+              }}
+            >
+              Sign up
+            </a>
+          </div>
+        </nav>
+
+        <div className="contact-page__content">
+          <div className="contact-page__left">
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              Let's talk<br />about your<br />project!
+            </motion.h1>
+            <div className="contact-page__spark">
+              <img src="/assets/ccb5e.svg" alt="" />
+            </div>
+          </div>
+
+          <motion.div
+            className="contact-page__right"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <form className="contact-form" onSubmit={handleSubmit}>
+              <div className="contact-form__row">
+                <div className="contact-form__field">
+                  <label htmlFor="firstName">First Name</label>
+                  <input
+                    id="firstName"
+                    type="text"
+                    value={formData.firstName}
+                    onChange={(e) =>
+                      setFormData({ ...formData, firstName: e.target.value })
+                    }
+                    required
+                  />
+                </div>
+                <div className="contact-form__field">
+                  <label htmlFor="lastName">Last Name</label>
+                  <input
+                    id="lastName"
+                    type="text"
+                    value={formData.lastName}
+                    onChange={(e) =>
+                      setFormData({ ...formData, lastName: e.target.value })
+                    }
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="contact-form__field">
+                <label htmlFor="email">Email</label>
+                <input
+                  id="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
+                  required
+                />
+              </div>
+
+              <div className="contact-form__field">
+                <label htmlFor="service">Service</label>
+                <input
+                  id="service"
+                  type="text"
+                  value={formData.service}
+                  onChange={(e) =>
+                    setFormData({ ...formData, service: e.target.value })
+                  }
+                />
+              </div>
+
+              <div className="contact-form__field">
+                <label htmlFor="projectDescription">Project Description</label>
+                <input
+                  id="projectDescription"
+                  type="text"
+                  value={formData.projectDescription}
+                  onChange={(e) =>
+                    setFormData({ ...formData, projectDescription: e.target.value })
+                  }
+                />
+              </div>
+
+              <button type="submit" className="contact-form__submit">
+                {submitted ? "Submitted!" : "Let's Connect"}
+              </button>
+            </form>
+          </motion.div>
+        </div>
+      </section>
+
+      <footer ref={footerRef}>
+        {isFooterInView ? (
+          <motion.img
+            key={gifKey}
+            src={`/Logo_Animation-1.gif?v=${gifKey}`}
+            alt="The Maram"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          />
+        ) : (
+          <div style={{ width: "13rem", height: "4rem" }} />
+        )}
+        <div>
+          <a
+            href="#home"
+            onClick={(e) => {
+              if (onNavigate) {
+                e.preventDefault()
+                onNavigate("home")
+              }
+            }}
+          >
+            Home
+          </a>
+          <a
+            href="#work"
+            onClick={(e) => {
+              if (onNavigate) {
+                e.preventDefault()
+                onNavigate("home", "work")
+              }
+            }}
+          >
+            Work
+          </a>
+          <a
+            href="#contact"
+            onClick={(e) => {
+              if (onNavigate) {
+                e.preventDefault()
+                onNavigate("contact")
+              }
+            }}
+          >
+            Contact
+          </a>
+        </div>
+        <div>
+          <a href="mailto:abc@gmail.com">abc@gmail.com</a>
+          <span>Here Location Goes</span>
+        </div>
+      </footer>
+    </>
+  )
+}
+
+function MobileContactPage({ onNavigate }: NavProps) {
+  const mFooterRef = useRef(null)
+  const isMFooterInView = useInView(mFooterRef, { amount: 0.3, once: false })
+  const [mGifKey, setMGifKey] = useState(0)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [mFormData, setMFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    service: "",
+    projectDescription: "",
+  })
+  const [mSubmitted, setMSubmitted] = useState(false)
+
+  useEffect(() => {
+    if (isMFooterInView) {
+      setMGifKey((prev) => prev + 1)
+    }
+  }, [isMFooterInView])
+
+  const handleMSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    setMSubmitted(true)
+    setTimeout(() => setMSubmitted(false), 3000)
+  }
+
+  return (
+    <div className="mobile-contact-wrapper">
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            className="m-nav__drawer"
+            initial={{ opacity: 0, y: "-100%" }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: "-100%" }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="m-nav__drawer-header">
+              <a
+                href="#mobile-home"
+                onClick={(e) => {
+                  e.preventDefault()
+                  setMenuOpen(false)
+                  if (onNavigate) onNavigate("home")
+                }}
+              >
+                <img src="/assets/brand-mark.svg" alt="The Maram Logo" />
+              </a>
+              <button
+                className="m-nav__drawer-close"
+                type="button"
+                onClick={() => setMenuOpen(false)}
+                aria-label="Close menu"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="m-nav__drawer-links">
+              <a
+                href="#mobile-home"
+                onClick={(e) => {
+                  e.preventDefault()
+                  setMenuOpen(false)
+                  if (onNavigate) onNavigate("home")
+                }}
+              >
+                Home
+              </a>
+              <a
+                href="#mobile-work"
+                onClick={(e) => {
+                  e.preventDefault()
+                  setMenuOpen(false)
+                  if (onNavigate) onNavigate("home", "mobile-work")
+                }}
+              >
+                Work
+              </a>
+              <a
+                href="#mobile-contact"
+                onClick={(e) => {
+                  e.preventDefault()
+                  setMenuOpen(false)
+                  if (onNavigate) onNavigate("contact")
+                }}
+              >
+                Contact
+              </a>
+              <a
+                className="m-nav__drawer-cta"
+                href="#mobile-contact"
+                onClick={(e) => {
+                  e.preventDefault()
+                  setMenuOpen(false)
+                  if (onNavigate) onNavigate("contact")
+                }}
+              >
+                Sign up
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <section className="m-contact-page" id="mobile-contact">
+        <nav className="m-nav" aria-label="Mobile contact navigation">
+          <a
+            href="#mobile-home"
+            aria-label="The Maram home"
+            onClick={(e) => {
+              if (onNavigate) {
+                e.preventDefault()
+                onNavigate("home")
+              }
+            }}
+          >
+            <img src="/assets/brand-mark.svg" alt="The Maram Logo" />
+          </a>
+          <button
+            className={`m-nav__menu${menuOpen ? " is-open" : ""}`}
+            type="button"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle navigation menu"
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+        </nav>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          Let's talk<br />about your<br />project!
+        </motion.h1>
+
+        <form className="contact-form" onSubmit={handleMSubmit}>
+          <div className="contact-form__field">
+            <label htmlFor="mFirstName">First Name</label>
+            <input
+              id="mFirstName"
+              type="text"
+              value={mFormData.firstName}
+              onChange={(e) =>
+                setMFormData({ ...mFormData, firstName: e.target.value })
+              }
+              required
+            />
+          </div>
+          <div className="contact-form__field">
+            <label htmlFor="mLastName">Last Name</label>
+            <input
+              id="mLastName"
+              type="text"
+              value={mFormData.lastName}
+              onChange={(e) =>
+                setMFormData({ ...mFormData, lastName: e.target.value })
+              }
+              required
+            />
+          </div>
+          <div className="contact-form__field">
+            <label htmlFor="mEmail">Email</label>
+            <input
+              id="mEmail"
+              type="email"
+              value={mFormData.email}
+              onChange={(e) =>
+                setMFormData({ ...mFormData, email: e.target.value })
+              }
+              required
+            />
+          </div>
+          <div className="contact-form__field">
+            <label htmlFor="mService">Service</label>
+            <input
+              id="mService"
+              type="text"
+              value={mFormData.service}
+              onChange={(e) =>
+                setMFormData({ ...mFormData, service: e.target.value })
+              }
+            />
+          </div>
+          <div className="contact-form__field">
+            <label htmlFor="mProjectDescription">Project Description</label>
+            <input
+              id="mProjectDescription"
+              type="text"
+              value={mFormData.projectDescription}
+              onChange={(e) =>
+                setMFormData({ ...mFormData, projectDescription: e.target.value })
+              }
+            />
+          </div>
+
+          <button type="submit" className="contact-form__submit">
+            {mSubmitted ? "Submitted!" : "Let's Connect"}
+          </button>
+        </form>
+
+        <div className="m-contact-page__spark">
+          <img src="/assets/ccb5e.svg" alt="" />
+        </div>
+      </section>
+
+      <footer className="m-footer" ref={mFooterRef}>
+        {isMFooterInView ? (
+          <motion.img
+            key={mGifKey}
+            src={`/Logo_Animation-1.gif?v=${mGifKey}`}
+            alt="The Maram"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          />
+        ) : (
+          <div style={{ width: "8.5rem", height: "3rem" }} />
+        )}
+        <div>
+          <a href="mailto:abc@gmail.com">abc@gmail.com</a>
+          <span>Here Location Goes</span>
+        </div>
+      </footer>
+    </div>
+  )
+}
+
+function MobilePage({ onNavigate }: NavProps) {
   const mFooterRef = useRef(null)
   const isMFooterInView = useInView(mFooterRef, { amount: 0.3, once: false })
   const [mGifKey, setMGifKey] = useState(0)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
+  const [activeDisciplineIndex, setActiveDisciplineIndex] = useState(0)
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveDisciplineIndex((prev) => (prev + 1) % disciplines.length)
+    }, 2000)
+
+    return () => clearInterval(interval)
+  }, [])
 
   useEffect(() => {
     if (isMFooterInView) {
@@ -390,25 +978,119 @@ function MobilePage() {
 
   return (
     <main className="mobile-site">
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            className="m-nav__drawer"
+            initial={{ opacity: 0, y: "-100%" }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: "-100%" }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="m-nav__drawer-header">
+              <a
+                href="#mobile-home"
+                onClick={(e) => {
+                  e.preventDefault()
+                  setMenuOpen(false)
+                  if (onNavigate) onNavigate("home")
+                }}
+              >
+                <img src="/assets/brand-mark.svg" alt="The Maram Logo" />
+              </a>
+              <button
+                className="m-nav__drawer-close"
+                type="button"
+                onClick={() => setMenuOpen(false)}
+                aria-label="Close menu"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="m-nav__drawer-links">
+              <a
+                href="#mobile-home"
+                onClick={(e) => {
+                  e.preventDefault()
+                  setMenuOpen(false)
+                  if (onNavigate) onNavigate("home")
+                }}
+              >
+                Home
+              </a>
+              <a
+                href="#mobile-work"
+                onClick={(e) => {
+                  e.preventDefault()
+                  setMenuOpen(false)
+                  if (onNavigate) onNavigate("home", "mobile-work")
+                }}
+              >
+                Work
+              </a>
+              <a
+                href="#mobile-contact"
+                onClick={(e) => {
+                  e.preventDefault()
+                  setMenuOpen(false)
+                  if (onNavigate) onNavigate("contact")
+                }}
+              >
+                Contact
+              </a>
+              <a
+                className="m-nav__drawer-cta"
+                href="#mobile-contact"
+                onClick={(e) => {
+                  e.preventDefault()
+                  setMenuOpen(false)
+                  if (onNavigate) onNavigate("contact")
+                }}
+              >
+                Sign up
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <section className="m-hero">
         <picture className="m-hero__portrait">
           <img src="/assets/46ba6.png" alt="Maram Abuznada" />
         </picture>
         <nav className="m-nav" aria-label="Mobile navigation">
-          <a href="#mobile-home" aria-label="The Maram home">
+          <a
+            href="#mobile-home"
+            aria-label="The Maram home"
+            onClick={(e) => {
+              if (onNavigate) {
+                e.preventDefault()
+                onNavigate("home")
+              }
+            }}
+          >
             <img src="/assets/brand-mark.svg" alt="The Maram Logo" />
           </a>
-          <a className="m-nav__menu" href="#mobile-work" aria-label="Jump to work">
+          <button
+            className={`m-nav__menu${menuOpen ? " is-open" : ""}`}
+            type="button"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle navigation menu"
+          >
             <span />
             <span />
             <span />
-          </a>
+          </button>
         </nav>
         <div className="m-disciplines" aria-label="Maram's disciplines">
-          <span>Strategy</span>
-          <span className="is-active">Experience</span>
-          <span>Architecture</span>
-          <span>Creativity</span>
+          {disciplines.map((discipline, index) => (
+            <span
+              key={discipline}
+              className={activeDisciplineIndex === index ? "is-active" : ""}
+            >
+              {discipline}
+            </span>
+          ))}
         </div>
         <motion.p
           className="m-hero__name"
@@ -584,7 +1266,13 @@ function MobilePage() {
           Ready to build<br />together?
         </motion.h2>
         <motion.a
-          href="mailto:abc@gmail.com"
+          href="#mobile-contact"
+          onClick={(e) => {
+            if (onNavigate) {
+              e.preventDefault()
+              onNavigate("contact")
+            }
+          }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false }}
@@ -617,19 +1305,69 @@ function MobilePage() {
 }
 
 export default function App() {
+  const [currentPage, setCurrentPage] = useState<"home" | "contact">(() => {
+    if (typeof window !== "undefined") {
+      return window.location.hash === "#contact" ? "contact" : "home"
+    }
+    return "home"
+  })
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      if (window.location.hash === "#contact") {
+        setCurrentPage("contact")
+      } else {
+        setCurrentPage("home")
+      }
+    }
+    window.addEventListener("hashchange", handleHashChange)
+    return () => window.removeEventListener("hashchange", handleHashChange)
+  }, [])
+
+  const navigateTo = (page: "home" | "contact", sectionId?: string) => {
+    setCurrentPage(page)
+    if (page === "contact") {
+      window.location.hash = "contact"
+      window.scrollTo({ top: 0, behavior: "smooth" })
+    } else {
+      if (sectionId) {
+        window.location.hash = sectionId
+        setTimeout(() => {
+          const el = document.getElementById(sectionId)
+          if (el) el.scrollIntoView({ behavior: "smooth" })
+        }, 100)
+      } else {
+        window.location.hash = "home"
+        window.scrollTo({ top: 0, behavior: "smooth" })
+      }
+    }
+  }
+
   return (
     <>
       <IntroOverlay />
       <main className="desktop-site">
-        <Hero />
-        <About />
-        <Projects />
-        <Services />
-        <Testimonials />
-        <FAQ />
-        <Contact />
+        {currentPage === "contact" ? (
+          <ContactPage onNavigate={navigateTo} />
+        ) : (
+          <>
+            <Hero onNavigate={navigateTo} />
+            <About />
+            <Projects />
+            <Services />
+            <Testimonials />
+            <FAQ />
+            <MainFooterSection onNavigate={navigateTo} />
+          </>
+        )}
       </main>
-      <MobilePage />
+      <main className="mobile-site">
+        {currentPage === "contact" ? (
+          <MobileContactPage onNavigate={navigateTo} />
+        ) : (
+          <MobilePage onNavigate={navigateTo} />
+        )}
+      </main>
     </>
   )
 }
