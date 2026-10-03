@@ -1,12 +1,13 @@
-@import url("https://api.fontshare.com/v2/css?f[]=nohemi@300,400,500&display=swap");
 @import "tailwindcss";
 
 @font-face {
-  font-family: "Nohemi:Regular";
+  font-family: "Nohemi";
   src: url("/fonts/Nohemi-Regular.woff2") format("woff2");
   font-style: normal;
-  font-weight: 400;
+  font-weight: 300 700;
+  font-display: swap;
 }
+
 
 @theme {
   --color-evergreen: #07503a;
@@ -14,6 +15,7 @@
   --color-accent: #46ae87;
   --font-nohemi: "Nohemi", sans-serif;
 }
+
 
 :root {
   --green: #07503a;
@@ -24,6 +26,17 @@
   color: var(--black);
   background: var(--snow);
   font-synthesis: none;
+}
+
+*,
+body,
+button,
+input,
+select,
+textarea,
+h1, h2, h3, h4, h5, h6,
+p, a, span {
+  font-family: "Nohemi", sans-serif !important;
 }
 
 * {
@@ -71,7 +84,7 @@ button {
 
 .hero {
   position: relative;
-  min-height: 100svh;
+  min-height: 95svh;
   overflow: hidden;
   color: var(--snow);
   background: var(--black);
@@ -86,6 +99,13 @@ button {
 }
 
 .hero__portrait {
+  position: absolute;
+  top: -100px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100% + 50px);
   display: block;
   object-fit: cover;
   object-position: center top;
@@ -124,7 +144,7 @@ button {
   align-items: center;
   gap: clamp(1.7rem, 3vw, 3.4rem);
   font-family: "Nohemi:Regular", "Nohemi", sans-serif;
-  font-size: clamp(0.8rem, 1.3vw, 1.25rem);
+  font-size: 20px;
 }
 
 .nav__links a {
@@ -136,7 +156,8 @@ button {
 }
 
 .nav__cta {
-  padding: 0.8em 1.3em;
+  padding: 0.1em 0.4em;
+
   background: var(--mint);
 }
 
@@ -146,20 +167,14 @@ button {
 
 .hero__disciplines {
   position: absolute;
+  inset: 0;
   z-index: 2;
-  inset: 32% 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(3rem, 8vw, 7rem) clamp(12rem, 48vw, 42rem);
-  width: min(88%, 68rem);
-  margin: auto;
-  text-align: center;
-  font-family: "Nohemi:Regular", "Nohemi", sans-serif;
-  font-size: clamp(0.9rem, 1.75vw, 1.55rem);
-  letter-spacing: 0.1em;
+  pointer-events: none;
 }
 
 .hero__disciplines button {
+  position: absolute;
+  pointer-events: auto;
   padding: 0;
   border: 0;
   color: var(--snow);
@@ -167,6 +182,9 @@ button {
   opacity: 0.33;
   cursor: pointer;
   transition: opacity 180ms ease;
+  font-family: "Nohemi:Regular", "Nohemi", sans-serif;
+  font-size: clamp(0.9rem, 1.75vw, 1.55rem);
+  letter-spacing: 0.1em;
 }
 
 .hero__disciplines button.is-active {
@@ -174,19 +192,23 @@ button {
 }
 
 .hero__disciplines button[data-discipline="architecture"] {
-  grid-area: 1 / 1;
+  top: 41%;
+  left: 27%;
 }
 
 .hero__disciplines button[data-discipline="experience"] {
-  grid-area: 1 / 2;
+  top: 43%;
+  right: 28%;
 }
 
 .hero__disciplines button[data-discipline="creativity"] {
-  grid-area: 2 / 1;
+  top: 54%;
+  left: 21%;
 }
 
 .hero__disciplines button[data-discipline="strategy"] {
-  grid-area: 2 / 2;
+  top: 56%;
+  right: 22%;
 }
 
 .hero__name {
@@ -216,29 +238,38 @@ button {
 .section-divider img {
   position: absolute;
   top: 0;
-  left: 50%;
   display: block;
   max-width: none;
-  transform: translate(-50%, -50%);
 }
 
 .section-divider__desktop {
-  width: 100vw;
+  position: absolute;
+  top: 0;
+  width: 96vw;
   height: auto;
+  transform: translateY(-50%);
 }
 
 .section-divider__desktop--left {
-  transform: translate(-50%, -50%) scaleX(-1) !important;
+  left: 10vw;
+  transform: translateY(-50%) scaleX(-1) !important;
+}
+
+.section-divider__desktop--right {
+  left: 0;
+  transform: translateY(-50%);
 }
 
 .section-divider__mobile {
   display: none !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
 }
 
 .about {
   position: relative;
   display: grid;
-  min-height: 52rem;
+  min-height: 95svh;
   place-items: center;
   padding: clamp(6rem, 12vw, 12rem) clamp(1.5rem, 12vw, 10rem);
   background: var(--snow);
@@ -285,8 +316,8 @@ button {
 
 .projects {
   position: relative;
-  min-height: 100svh;
-  padding: clamp(6rem, 9vw, 9rem) clamp(1.25rem, 4vw, 4.5rem) 5rem;
+  min-height: 95svh;
+  padding: clamp(3rem, 5vw, 5rem) clamp(1.25rem, 4vw, 4.5rem) clamp(2rem, 4vw, 4rem);
   color: var(--snow);
   background: var(--black);
 }
@@ -305,7 +336,7 @@ button {
 .faq > h2 {
   margin: 0;
   font-family: "Nohemi", sans-serif;
-  font-size: clamp(2.6rem, 5.2vw, 4.8rem);
+  font-size: clamp(3.6rem, 5.2vw, 4.8rem);
   font-weight: 500;
   line-height: 0.89;
   letter-spacing: 0.03em;
@@ -314,12 +345,13 @@ button {
 .section-heading p {
   max-width: 37rem;
   margin: 0;
-  font-size: clamp(0.78rem, 1.1vw, 1rem);
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
   line-height: 1.55;
   letter-spacing: 0.03em;
 }
 
 .project-grid {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: clamp(0.35rem, 1vw, 1rem);
@@ -327,15 +359,16 @@ button {
 }
 
 .project-grid figure {
-  height: clamp(15rem, 33vw, 30rem);
+  height: clamp(12rem, 25vw, 22rem);
   margin: 0;
   overflow: hidden;
 }
 
 .project-grid figure:nth-child(2),
 .project-grid figure:nth-child(4) {
-  height: clamp(18rem, 38vw, 35rem);
+  height: clamp(14rem, 28vw, 25rem);
 }
+
 
 .project-grid img {
   width: 100%;
@@ -348,67 +381,97 @@ button {
   transform: scale(1.05);
 }
 
-.text-link {
-  display: flex;
-  width: fit-content;
-  gap: 1rem;
+.project-watch-more {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: inline-flex;
   align-items: center;
-  margin: 2.8rem auto 0;
-  font-size: 0.95rem;
+  justify-content: center;
+  white-space: nowrap;
+  padding: 0.4rem 1rem;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: var(--snow);
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  transition: background 200ms ease, transform 200ms ease;
+}
+
+.project-watch-more:hover {
+  background: rgba(0, 0, 0, 0.75);
+  transform: translateX(-50%) scale(1.03);
 }
 
 .services {
-  min-height: 100svh;
-  padding: clamp(5rem, 8vw, 8rem) clamp(1.25rem, 8vw, 8rem);
+  min-height: auto;
+  padding: clamp(2.5rem, 4vw, 4rem) clamp(1.25rem, 8vw, 8rem);
   background: var(--snow);
 }
 
 .services > h2 {
-  margin-bottom: clamp(3rem, 6vw, 6rem);
+  margin-bottom: clamp(1rem, 2.5vw, 2rem);
 }
 
 .service-list {
   display: flex;
   justify-content: center;
-  align-items: center;
-  min-height: 37rem;
+  align-items: flex-start;
+  gap: 15px;
 }
+
 
 .service-card {
   position: relative;
-  width: min(30%, 23rem);
+  width: min(28%, 22rem);
   min-width: 15rem;
-  height: clamp(25rem, 40vw, 34rem);
+  height: 25rem;
   overflow: hidden;
   color: var(--snow);
   background: var(--black);
+  display: flex;
+  flex-direction: column;
+}
+
+.service-card:nth-child(1) {
+  margin-top: 0;
 }
 
 .service-card:nth-child(2) {
   z-index: 2;
-  margin: 9rem -1rem 0;
+  margin-top: 4.5rem;
 }
 
 .service-card:nth-child(3) {
-  margin-top: 17rem;
+  margin-top: 9rem;
 }
 
 .service-card > img {
   width: 100%;
-  height: 75%;
+  height: 18.5rem;
   object-fit: cover;
   filter: grayscale(1);
+  flex-shrink: 0;
 }
 
 .service-card > div {
+  flex: 1;
   display: flex;
   justify-content: space-between;
   align-items: end;
-  padding: 1.25rem;
+  padding: 0.6rem 1.25rem;
 }
 
+
 .service-card h3 {
-  max-width: 80%;
+  max-width: 65%;
   margin: 0;
   font-size: clamp(1.4rem, 2.8vw, 2.5rem);
   font-weight: 500;
@@ -422,13 +485,13 @@ button {
 
 .spark-mark img {
   display: block;
-  width: 2rem;
+  width: 4rem;
   height: auto;
 }
 
 .testimonials {
   position: relative;
-  min-height: 46rem;
+  min-height: 95svh;
   padding: clamp(5rem, 8vw, 8rem) 0;
   color: var(--snow);
   background: var(--black);
@@ -452,14 +515,30 @@ button {
   gap: 1rem;
   width: max-content;
   padding: 0 clamp(1.25rem, 8vw, 8rem);
+  animation: marquee 80s linear infinite;
 }
+
+.testimonial-viewport:hover .testimonial-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 
 .testimonial-card {
   display: flex;
   flex-direction: column;
   width: clamp(17rem, 24vw, 22rem);
-  min-height: 25rem;
-  padding: 2rem;
+  min-height: 23rem;
+  padding: 1.5rem;
   color: var(--black);
   background: var(--mint);
 }
@@ -476,7 +555,7 @@ button {
 }
 
 .testimonial-card p {
-  margin: 3rem 0;
+  margin: 1.5rem 0;
   font-size: 0.9rem;
   line-height: 1.55;
   letter-spacing: 0.03em;
@@ -499,7 +578,7 @@ button {
 
 .faq {
   position: relative;
-  min-height: 42rem;
+  min-height: 95svh;
   padding: clamp(5rem, 8vw, 8rem) 0;
   background: var(--snow);
 }
@@ -528,9 +607,22 @@ button {
   cursor: pointer;
 }
 
-.faq__item button span:last-child {
-  color: var(--mint);
-  font-size: 1.4rem;
+.faq__spark {
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+  transition: transform 300ms ease;
+  flex-shrink: 0;
+}
+
+.faq__spark img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.faq__spark.is-open {
+  transform: rotate(45deg);
 }
 
 .faq__item p {
@@ -544,7 +636,7 @@ button {
 
 .contact {
   display: flex;
-  min-height: 32rem;
+  min-height: 95svh;
   flex-direction: column;
   place-content: center;
   align-items: center;
@@ -586,8 +678,9 @@ footer {
 }
 
 footer > img {
-  width: 8rem;
+  width: 13rem;
   height: auto;
+  transform: translateX(-100px);
 }
 
 footer > div {
@@ -597,50 +690,20 @@ footer > div {
   font-size: 0.8rem;
 }
 
-@media (max-width: 767px) {
-  .nav {
-    padding: 2rem 1.5rem;
-  }
+.mobile-site {
+  display: none;
+}
 
-  .nav__links {
+@media (max-width: 767px) {
+  .desktop-site {
     display: none;
   }
 
-  .nav__menu {
-    display: flex;
-    width: 1.9rem;
-    flex-direction: column;
-    gap: 0.28rem;
-  }
-
-  .nav__menu span {
-    height: 0.22rem;
-    border-radius: 1rem;
+  .mobile-site {
+    display: block;
+    width: 100%;
+    overflow: hidden;
     background: var(--snow);
-  }
-
-  .hero__portrait {
-    width: 100%;
-  }
-
-  .hero__portrait img {
-    object-position: 51% top;
-  }
-
-  .hero__disciplines {
-    top: 17%;
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    gap: 0.3rem;
-    font-size: 1.159rem;
-    line-height: 1.16;
-    letter-spacing: 0.1em;
-  }
-
-  .hero__disciplines button {
-    width: fit-content;
-    margin: 0 auto;
   }
 
   .section-divider__desktop {
@@ -649,159 +712,455 @@ footer > div {
 
   .section-divider__mobile {
     display: block !important;
-    width: 89.748rem;
+    width: 220vw !important;
+    max-width: none !important;
+    height: auto !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+  }
+
+  .m-hero {
+    position: relative;
+    height: 100svh;
+    min-height: 540px;
+    max-height: 800px;
+    overflow: hidden;
+    color: var(--snow);
+    background: var(--black);
+  }
+
+  .m-hero__portrait {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .m-hero__portrait img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    left: -8px;
+    top: -40px;
+    width: 100%;
+    height: 130%;
+    max-width: none;
+    object-fit: cover;
+    object-position: 50% 65%;
+  }
+
+  .m-nav {
+    position: absolute;
+    z-index: 2;
+    top: 1.5rem;
+    right: 1.5rem;
+    left: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .m-nav > a:first-child img {
+    display: block;
+    width: 2.8rem;
     height: auto;
   }
 
-  .hero__name {
-    bottom: 4%;
-    font-size: clamp(3.7rem, 15vw, 5.2rem);
-    text-align: left;
-    padding-left: 1.4rem;
+  .m-nav__menu {
+    display: flex;
+    width: 1.8rem;
+    flex-direction: column;
+    gap: 0.28rem;
   }
 
-  .about {
-    min-height: 37rem;
-    padding: 6rem 2.2rem;
+  .m-nav__menu span {
+    height: 0.22rem;
+    border-radius: 1rem;
+    background: #d9d9d9;
   }
 
-  .about p {
-    font-size: 1rem;
+  .m-disciplines {
+    position: absolute;
+    z-index: 2;
+    top: 18%;
+    right: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--snow);
+    font-family: "Nohemi:Regular", "Nohemi", sans-serif;
+    font-size: clamp(1.1rem, 4.5vw, 1.3rem);
+    line-height: 1.25;
+    letter-spacing: 0.1em;
+  }
+
+  .m-disciplines span {
+    opacity: 0.33;
+  }
+
+  .m-disciplines .is-active {
+    opacity: 1;
+  }
+
+  .m-hero__name {
+    position: absolute;
+    z-index: 2;
+    right: 0;
+    left: 0;
+    bottom: 2rem;
+    margin: 0;
+    text-align: center;
+    color: var(--snow);
+    font-family: "Nohemi:Regular", "Nohemi", sans-serif;
+    font-size: clamp(3.2rem, 13vw, 4.8rem);
+    line-height: 0.89;
+    letter-spacing: 0.03em;
+  }
+
+  .m-about {
+    position: relative;
+    display: grid;
+    min-height: 28rem;
+    place-items: center;
+    overflow: visible;
+    background: var(--snow);
+    padding: 5rem 1.5rem;
+  }
+
+  .m-about__grid {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    opacity: 0.04;
+  }
+
+  .m-about__grid img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    max-width: none;
+  }
+
+  .m-about__grid img:first-child {
+    transform: translate(-50%, -50%);
+  }
+
+  .m-about__grid img:last-child {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  .m-about > p {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 22rem;
+    margin: 0;
+    color: var(--green);
+    text-align: center;
+    font-family: "Nohemi:Regular", "Nohemi", sans-serif;
+    font-size: clamp(0.95rem, 3.8vw, 1.15rem);
+    font-weight: 400;
     line-height: 1.5;
+    letter-spacing: 0.03em;
   }
 
-  .section-heading {
-    grid-template-columns: 1fr;
-    gap: 1.7rem;
-    align-items: start;
-  }
-
-  .section-heading h2,
-  .services > h2,
-  .testimonials > h2,
-  .faq > h2 {
-    font-size: 2.55rem;
-  }
-
-  .project-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .project-grid figure,
-  .project-grid figure:nth-child(2),
-  .project-grid figure:nth-child(4) {
-    height: 12rem;
-  }
-
-  .project-grid figure:last-child {
-    grid-column: 1 / -1;
-    width: 50%;
-    justify-self: center;
-  }
-
-  .services {
+  .m-projects {
+    position: relative;
     min-height: auto;
-    padding: 5rem 1.5rem 7rem;
+    padding: 5rem 1.5rem 3rem;
+    color: var(--snow);
+    background: var(--black);
   }
 
-  .service-list {
-    min-height: 33rem;
+  .m-projects h2,
+  .m-services h2,
+  .m-testimonials h2,
+  .m-faq h2 {
+    margin: 0;
+    font-family: "Nohemi", sans-serif;
+    font-size: clamp(2.2rem, 9.5vw, 2.8rem);
+    font-weight: 500;
+    line-height: 0.89;
+    letter-spacing: 0.03em;
+  }
+
+  .m-projects > p {
+    width: 100%;
+    max-width: 22rem;
+    margin: 1.5rem 0 2rem;
+    font-family: "Nohemi:Regular", "Nohemi", sans-serif;
+    font-size: clamp(0.75rem, 2.8vw, 0.9rem);
+    line-height: 1.5;
+    letter-spacing: 0.03em;
+  }
+
+  .m-projects__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .m-projects__grid img {
+    display: block;
+    width: 100%;
+    height: 13.5rem;
+    object-fit: cover;
+  }
+
+  .m-projects > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    padding: 0.5rem 1.2rem;
+    margin: 2rem auto 0;
+    border: 1px solid var(--snow);
+    border-radius: 6px;
+    font-family: "Nohemi:Regular", "Nohemi", sans-serif;
+    font-size: 0.85rem;
+  }
+
+  .m-services {
+    position: relative;
+    padding: 3rem 1.5rem 10rem;
+    min-height: 28rem;
+    background: var(--snow);
+  }
+
+  .m-services > h2 {
+    color: var(--black);
+  }
+
+  .m-services__cards {
+    position: relative;
+    height: 19rem;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
     align-items: flex-start;
-    padding-top: 1.5rem;
   }
 
-  .service-card {
-    width: 38%;
-    min-width: 0;
-    height: 16rem;
+  .m-services__cards article {
+    position: relative;
+    width: 40%;
+    height: 10.2rem;
+    overflow: hidden;
+    color: var(--snow);
+    background: var(--black);
+    display: flex;
+    flex-direction: column;
   }
 
-  .service-card:nth-child(2) {
-    margin: 5rem -0.5rem 0;
+  .m-services__cards article:nth-child(1) {
+    margin-top: 0;
+    z-index: 3;
   }
 
-  .service-card:nth-child(3) {
-    margin-top: 10rem;
+  .m-services__cards article:nth-child(2) {
+    margin-top: 8rem;
+    margin-left: -3.0rem;
+    margin-right: -3.5rem;
+    z-index: 2;
   }
 
-  .service-card > img {
+  .m-services__cards article:nth-child(3) {
+    margin-top: 16rem;
+  }
+
+  .m-services__cards article > img {
+    display: block;
+    width: 100%;
     height: 70%;
+    object-fit: cover;
+    filter: grayscale(1);
   }
 
-  .service-card > div {
-    padding: 0.7rem;
+  .m-services__cards article > div {
+    display: flex;
+    flex: 1;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0.35rem 0.45rem;
   }
 
-  .service-card h3 {
-    font-size: 0.9rem;
+  .m-services__cards h3 {
+    margin: 0;
+    font-family: "Nohemi", sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    line-height: 0.95;
   }
 
-  .spark-mark img {
-    width: 1.5rem;
+  .m-services__cards .spark-mark img {
+    width: 1rem;
   }
 
-  .testimonials {
-    min-height: 37rem;
+  .m-testimonials {
+    position: relative;
+    padding: 5rem 0 4rem;
+    overflow: visible;
+    color: var(--snow);
+    background: var(--black);
   }
 
-  .testimonial-card {
+  .m-testimonials > h2 {
+    margin-left: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .m-testimonials__track {
+    display: flex;
+    width: max-content;
+    gap: 0.85rem;
+    padding: 0 1.5rem;
+    animation: marquee 60s linear infinite;
+  }
+
+  .m-testimonials__track article {
+    display: flex;
     width: 12.5rem;
     min-height: 16.5rem;
+    flex-direction: column;
     padding: 1.2rem;
+    color: var(--black);
+    background: var(--mint);
   }
 
-  .testimonial-card__avatar {
+  .m-testimonials__track .is-muted {
+    opacity: 0.42;
+  }
+
+  .m-testimonials__avatar {
     width: 2rem;
     height: 2rem;
+    border-radius: 50%;
+    background: rgba(249, 249, 249, 0.55);
   }
 
-  .testimonial-card p {
-    margin: 1.5rem 0;
+  .m-testimonials__track p {
+    margin: 1.2rem 0 auto;
+    font-family: "Nohemi:Regular", "Nohemi", sans-serif;
+    font-size: 0.68rem;
+    line-height: 1.35;
+    letter-spacing: 0.03em;
+  }
+
+  .m-testimonials__track strong {
+    font-family: "Nohemi", sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  .m-testimonials__track small {
+    margin-top: 0.2rem;
     font-size: 0.65rem;
   }
 
-  .testimonial-card strong {
-    font-size: 0.78rem;
+  .m-faq {
+    position: relative;
+    padding: 5rem 0 4rem;
+    background: var(--snow);
   }
 
-  .faq {
-    min-height: 34rem;
+  .m-faq > h2 {
+    margin-left: 1.5rem;
+    margin-bottom: 2rem;
+    color: var(--black);
   }
 
-  .faq__item button {
+  .m-faq__list {
+    border-top: 1px solid rgba(0, 1, 0, 0.45);
+  }
+
+  .m-faq__item {
+    border-bottom: 1px solid rgba(0, 1, 0, 0.45);
+  }
+
+  .m-faq button {
+    display: flex;
+    width: 100%;
+    min-height: 3.2rem;
+    align-items: center;
+    justify-content: space-between;
     gap: 1rem;
-    padding: 1rem 1.25rem;
+    padding: 0.8rem 1.5rem;
+    border: 0;
+    color: var(--black);
+    text-align: left;
+    background: transparent;
+    font-family: "Nohemi:Regular", "Nohemi", sans-serif;
+    font-size: 0.78rem;
+    cursor: pointer;
+  }
+
+  .m-faq p {
+    margin: 0;
+    overflow: hidden;
+    padding: 0 1.5rem 1rem;
+    color: rgba(0, 1, 0, 0.65);
     font-size: 0.75rem;
+    line-height: 1.55;
   }
 
-  .faq__item p {
-    padding: 0 1.25rem 1rem;
-    font-size: 0.75rem;
+  .m-contact {
+    display: flex;
+    min-height: 22rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--snow);
+    text-align: center;
+    background: var(--black);
+    padding: 4rem 1.5rem;
   }
 
-  .contact {
-    min-height: 25rem;
+  .m-contact h2 {
+    margin: 0 0 2rem;
+    font-family: "Nohemi", sans-serif;
+    font-size: 2.5rem;
+    font-weight: 500;
+    line-height: 0.97;
+    letter-spacing: 0.03em;
   }
 
-  .contact h2 {
-    font-size: 2.6rem;
+  .m-contact a {
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    color: var(--snow);
+    background: var(--mint);
+    font-family: "Nohemi:Regular", "Nohemi", sans-serif;
+    font-size: 1.1rem;
   }
 
-  footer {
-    grid-template-columns: 1fr 1fr;
+  .m-footer {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
     padding: 2rem 1.5rem;
+    color: var(--snow);
+    background: var(--green);
   }
 
-  footer > img {
-    width: 6rem;
+  .m-footer > img {
+    display: block;
+    width: 8.5rem;
+    height: auto;
+    transform: translateX(-30px);
   }
 
-  footer > div:first-of-type {
-    display: none;
-  }
-
-  footer > div:last-child {
+  .m-footer > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
     text-align: right;
+    font-family: "Nohemi:Regular", "Nohemi", sans-serif;
+    font-size: 0.75rem;
   }
 }
 
