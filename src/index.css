@@ -100,7 +100,7 @@ button {
 
 .hero__portrait {
   position: absolute;
-  top: -100px;
+  top: -60px;
   right: 0;
   bottom: 0;
   left: 0;
@@ -422,8 +422,8 @@ button {
 }
 
 .services {
-  min-height: 140vh;
-  padding: clamp(6rem, 10vw, 9rem) clamp(1.25rem, 8vw, 8rem) clamp(3rem, 5.5vw, 5rem);
+  min-height: 160vh;
+  padding: clamp(9rem, 15vw, 15rem) clamp(1.25rem, 8vw, 8rem) clamp(3rem, 5.5vw, 5rem);
   background: var(--snow);
 }
 
@@ -452,16 +452,16 @@ button {
 }
 
 .service-card:nth-child(1) {
-  margin-top: 5rem;
+  margin-top: 8rem;
 }
 
 .service-card:nth-child(2) {
   z-index: 2;
-  margin-top: 10rem;
+  margin-top: 15rem;
 }
 
 .service-card:nth-child(3) {
-  margin-top: 15rem;
+  margin-top: 22rem;
 }
 
 .service-card > img {
@@ -485,7 +485,7 @@ button {
   max-width: 65%;
   margin: 0;
   
-  font-size: clamp(1.4rem, 2.8vw, 2.5rem);
+  font-size: clamp(2.5rem, 3.0vw, 3.0rem);
   font-weight: 500;
   line-height: 0.9;
 }
@@ -1364,10 +1364,10 @@ footer > div {
     min-height: 100vh;
     background: var(--green);
     color: var(--snow);
-    padding: 2.5rem 1.5rem 5rem;
+    padding:4rem 1.5rem 5rem;
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
+    gap: 1rem;
   }
 
   .m-contact-page h1 {
@@ -1388,6 +1388,10 @@ footer > div {
   .m-contact-page .contact-form__row {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+  }
+
+  .m-contact-page .contact-form__field {
+    gap: 0.25rem;
   }
 
   .m-contact-page .contact-form__submit {

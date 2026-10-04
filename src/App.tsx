@@ -784,7 +784,7 @@ function MobileContactPage({ onNavigate }: NavProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          Let's talk<br />about your<br />project!
+          Let's talk about <br />your project!
         </motion.h1>
 
         <form className="contact-form" onSubmit={handleMSubmit}>
@@ -852,9 +852,7 @@ function MobileContactPage({ onNavigate }: NavProps) {
           </button>
         </form>
 
-        <div className="m-contact-page__spark">
-          <img src="/assets/ccb5e.svg" alt="" />
-        </div>
+
       </section>
     </div>
   )
