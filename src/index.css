@@ -317,17 +317,18 @@ button {
 .projects {
   position: relative;
   min-height: 95svh;
-  padding: clamp(3rem, 5vw, 5rem) clamp(1.25rem, 4vw, 4.5rem) clamp(2rem, 4vw, 4rem);
+  padding: clamp(6rem, 10vw, 10rem) clamp(1.25rem, 4vw, 4.5rem) clamp(2rem, 4vw, 4rem);
   color: var(--snow);
   background: var(--black);
 }
 
 .section-heading {
   display: grid;
-  grid-template-columns: 0.7fr 1fr;
+  grid-template-columns: auto 1fr;
   gap: 4rem;
   align-items: end;
   margin-bottom: clamp(3rem, 6vw, 6rem);
+  padding-right: clamp(3rem, 7vw, 9rem);
 }
 
 .section-heading h2,
@@ -353,8 +354,11 @@ button {
 }
 
 .projects-paragraph {
-  white-space: pre;
-  margin-left: clamp(2rem, 5vw, 6rem);
+  text-align: left;
+  justify-self: end;
+  margin-right: clamp(2rem, 5vw, 6rem);
+  white-space: nowrap;
+  max-width: none;
 }
 
 .project-grid {
@@ -439,7 +443,7 @@ button {
   position: relative;
   width: min(28%, 22rem);
   min-width: 15rem;
-  height: 25rem;
+  aspect-ratio: 0.75;
   overflow: hidden;
   color: var(--snow);
   background: var(--black);
@@ -462,7 +466,7 @@ button {
 
 .service-card > img {
   width: 100%;
-  height: 18.5rem;
+  height: 74%;
   object-fit: cover;
   filter: grayscale(1);
   flex-shrink: 0;
@@ -480,6 +484,7 @@ button {
 .service-card h3 {
   max-width: 65%;
   margin: 0;
+  
   font-size: clamp(1.4rem, 2.8vw, 2.5rem);
   font-weight: 500;
   line-height: 0.9;
@@ -1113,7 +1118,7 @@ footer > div {
   .m-services__cards article {
     position: relative;
     width: 40%;
-    height: 10.2rem;
+    aspect-ratio: 0.9;
     overflow: hidden;
     color: var(--snow);
     background: var(--black);

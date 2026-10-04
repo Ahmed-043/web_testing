@@ -263,11 +263,11 @@ function Projects() {
           Projects
         </h2>
         <p className="projects-paragraph">
-          {`         I work at the intersection of architecture, strategy, creativity,
-          and human experience — turning complex founder visions
-          into clear, aligned, and meaningful experiences. For ambitious
-          founders and decision-makers building brands that deserve
-          to be understood, not just noticed.`}
+          I work at the intersection of architecture, strategy, creativity,<br/>
+          and human experience — turning complex founder visions<br/>
+          into clear, aligned, and meaningful experiences. For ambitious<br/>
+          founders and decision-makers building brands that deserve<br/>
+          to be understood, not just noticed.
         </p>
       </div>
       <div className="project-grid">
