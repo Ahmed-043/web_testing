@@ -82,6 +82,12 @@ button {
   height: auto;
 }
 
+@media (max-width: 767px) {
+  .intro img {
+    width: clamp(18rem, 75vw, 25rem);
+  }
+}
+
 .hero {
   position: relative;
   min-height: 100svh;
@@ -181,7 +187,7 @@ button {
   background: transparent;
   opacity: 0.33;
   cursor: pointer;
-  transition: opacity 180ms ease;
+  transition: opacity 800ms ease-in-out;
   font-family: "Nohemi:Regular", "Nohemi", sans-serif;
   font-size: clamp(0.9rem, 1.75vw, 1.55rem);
   letter-spacing: 0.1em;
@@ -514,11 +520,19 @@ button {
 }
 
 .testimonial-viewport {
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   cursor: grab;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  touch-action: pan-x;
 }
 
-.testimonial-viewport:active {
+.testimonial-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.testimonial-viewport.is-dragging {
   cursor: grabbing;
 }
 
@@ -527,10 +541,11 @@ button {
   gap: 1rem;
   width: max-content;
   padding: 0 clamp(1.25rem, 8vw, 8rem);
-  animation: marquee 80s linear infinite;
+  animation: marquee 50s linear infinite;
 }
 
-.testimonial-viewport:hover .testimonial-track {
+.testimonial-viewport:hover .testimonial-track,
+.testimonial-viewport.is-dragging .testimonial-track {
   animation-play-state: paused;
 }
 
@@ -544,7 +559,6 @@ button {
   }
 }
 
-
 .testimonial-card {
   display: flex;
   flex-direction: column;
@@ -553,10 +567,6 @@ button {
   padding: 1.5rem;
   color: var(--black);
   background: var(--mint);
-}
-
-.testimonial-card.is-muted {
-  opacity: 0.42;
 }
 
 .testimonial-card__avatar {
@@ -590,7 +600,7 @@ button {
 
 .faq {
   position: relative;
-  min-height: 95svh;
+  min-height: 80svh;
   padding: clamp(5rem, 8vw, 8rem) 0;
   background: var(--snow);
 }
@@ -968,7 +978,7 @@ footer > div {
 
   .m-disciplines span {
     opacity: 0.33;
-    transition: opacity 180ms ease;
+    transition: opacity 800ms ease-in-out;
   }
 
   .m-disciplines .is-active {
@@ -1097,8 +1107,8 @@ footer > div {
 
   .m-services {
     position: relative;
-    padding: 3rem 1.5rem 10rem;
-    min-height: 28rem;
+    padding: 7rem 1.5rem 10rem;
+    min-height: 50rem;
     background: var(--snow);
   }
 
@@ -1127,19 +1137,19 @@ footer > div {
   }
 
   .m-services__cards article:nth-child(1) {
-    margin-top: 0;
+    margin-top: 5rem;
     z-index: 3;
   }
 
   .m-services__cards article:nth-child(2) {
-    margin-top: 8rem;
+    margin-top: 13rem;
     margin-left: -3.0rem;
     margin-right: -3.5rem;
     z-index: 2;
   }
 
   .m-services__cards article:nth-child(3) {
-    margin-top: 16rem;
+    margin-top: 21rem;
   }
 
   .m-services__cards article > img {
@@ -1183,12 +1193,29 @@ footer > div {
     margin-bottom: 2rem;
   }
 
+  .m-testimonial-viewport {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    touch-action: pan-x;
+  }
+
+  .m-testimonial-viewport::-webkit-scrollbar {
+    display: none;
+  }
+
   .m-testimonials__track {
     display: flex;
     width: max-content;
     gap: 0.85rem;
     padding: 0 1.5rem;
-    animation: marquee 60s linear infinite;
+    animation: marquee 40s linear infinite;
+  }
+
+  .m-testimonial-viewport:hover .m-testimonials__track,
+  .m-testimonial-viewport.is-dragging .m-testimonials__track {
+    animation-play-state: paused;
   }
 
   .m-testimonials__track article {
@@ -1199,10 +1226,6 @@ footer > div {
     padding: 1.2rem;
     color: var(--black);
     background: var(--mint);
-  }
-
-  .m-testimonials__track .is-muted {
-    opacity: 0.42;
   }
 
   .m-testimonials__avatar {
@@ -1391,7 +1414,7 @@ footer > div {
   }
 
   .m-contact-page .contact-form__field {
-    gap: 0.25rem;
+    gap: 0;
   }
 
   .m-contact-page .contact-form__submit {

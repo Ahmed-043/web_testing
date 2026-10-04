@@ -45,7 +45,7 @@ function IntroOverlay() {
     return () => window.clearTimeout(timeout)
   }, [reduceMotion])
 
-  const offsetX = isMobile ? -40 : -100
+  const offsetX = isMobile ? -45 : -100
 
   return (
     <AnimatePresence>
@@ -196,7 +196,9 @@ function Hero({ onNavigate }: NavProps) {
         onMouseLeave={() => setIsHovered(false)}
       >
         {disciplines.map((discipline, index) => (
-          <button
+          <motion.button
+            animate={{ opacity: activeDisciplineIndex === index ? 1 : 0.33 }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
             className={activeDisciplineIndex === index ? "is-active" : ""}
             data-discipline={discipline.toLowerCase()}
             key={discipline}
@@ -210,7 +212,7 @@ function Hero({ onNavigate }: NavProps) {
             onClick={() => setActiveDisciplineIndex(index)}
           >
             {discipline}
-          </button>
+          </motion.button>
         ))}
       </div>
       <motion.p
@@ -320,24 +322,128 @@ function Services() {
 function Testimonials() {
   const cards = Array.from({ length: 5 })
   const duplicatedCards = [...cards, ...cards]
+  const viewportRef = useRef<HTMLDivElement>(null)
+  const isDragging = useRef(false)
+  const startX = useRef(0)
+  const scrollLeftStart = useRef(0)
+  const [isDraggingState, setIsDraggingState] = useState(false)
+
+  const handlePointerDown = (e: React.PointerEvent) => {
+    isDragging.current = true
+    setIsDraggingState(true)
+    startX.current = e.clientX
+    if (viewportRef.current) {
+      scrollLeftStart.current = viewportRef.current.scrollLeft
+    }
+    try {
+      (e.target as HTMLElement).setPointerCapture(e.pointerId)
+    } catch {}
+  }
+
+  const handlePointerMove = (e: React.PointerEvent) => {
+    if (!isDragging.current || !viewportRef.current) return
+    const delta = e.clientX - startX.current
+    viewportRef.current.scrollLeft = scrollLeftStart.current - delta
+  }
+
+  const handlePointerUp = (e: React.PointerEvent) => {
+    isDragging.current = false
+    setIsDraggingState(false)
+    try {
+      (e.target as HTMLElement).releasePointerCapture(e.pointerId)
+    } catch {}
+  }
 
   return (
     <section className="testimonials">
       <Divider side="right" />
       <h2>Happy Clients</h2>
-      <div className="testimonial-viewport">
+      <div
+        className={`testimonial-viewport${isDraggingState ? " is-dragging" : ""}`}
+        ref={viewportRef}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        onPointerCancel={handlePointerUp}
+      >
         <div className="testimonial-track">
           {duplicatedCards.map((_, index) => (
-            <article
-              className={`testimonial-card${index % 5 === 2 ? " is-muted" : ""}`}
-              key={index}
-            >
+            <article className="testimonial-card" key={index}>
               <span className="testimonial-card__avatar" />
               <p>{testimonial}</p>
               <div>
                 <strong>Maya Rahman</strong>
                 <span>Founder, Mora Living</span>
               </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function MobileTestimonials() {
+  const cards = Array.from({ length: 4 })
+  const duplicatedCards = [...cards, ...cards]
+  const viewportRef = useRef<HTMLDivElement>(null)
+  const isDragging = useRef(false)
+  const startX = useRef(0)
+  const scrollLeftStart = useRef(0)
+  const [isDraggingState, setIsDraggingState] = useState(false)
+
+  const handlePointerDown = (e: React.PointerEvent) => {
+    isDragging.current = true
+    setIsDraggingState(true)
+    startX.current = e.clientX
+    if (viewportRef.current) {
+      scrollLeftStart.current = viewportRef.current.scrollLeft
+    }
+    try {
+      (e.target as HTMLElement).setPointerCapture(e.pointerId)
+    } catch {}
+  }
+
+  const handlePointerMove = (e: React.PointerEvent) => {
+    if (!isDragging.current || !viewportRef.current) return
+    const delta = e.clientX - startX.current
+    viewportRef.current.scrollLeft = scrollLeftStart.current - delta
+  }
+
+  const handlePointerUp = (e: React.PointerEvent) => {
+    isDragging.current = false
+    setIsDraggingState(false)
+    try {
+      (e.target as HTMLElement).releasePointerCapture(e.pointerId)
+    } catch {}
+  }
+
+  return (
+    <section className="m-testimonials">
+      <Divider side="right" />
+      <motion.h2
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false }}
+        transition={{ duration: 0.8 }}
+      >
+        Happy Clients
+      </motion.h2>
+      <div
+        className={`m-testimonial-viewport${isDraggingState ? " is-dragging" : ""}`}
+        ref={viewportRef}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        onPointerCancel={handlePointerUp}
+      >
+        <div className="m-testimonials__track">
+          {duplicatedCards.map((_, index) => (
+            <article key={index}>
+              <span className="m-testimonials__avatar" />
+              <p>{testimonial}</p>
+              <strong>Maya Rahman</strong>
+              <small>Founder, Mora Living</small>
             </article>
           ))}
         </div>
@@ -988,12 +1094,14 @@ function MobilePage({ onNavigate }: NavProps) {
         </nav>
         <div className="m-disciplines" aria-label="Maram's disciplines">
           {disciplines.map((discipline, index) => (
-            <span
+            <motion.span
               key={discipline}
+              animate={{ opacity: activeDisciplineIndex === index ? 1 : 0.33 }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
               className={activeDisciplineIndex === index ? "is-active" : ""}
             >
               {discipline}
-            </span>
+            </motion.span>
           ))}
         </div>
         <motion.p
@@ -1094,27 +1202,7 @@ function MobilePage({ onNavigate }: NavProps) {
         </div>
       </section>
 
-      <section className="m-testimonials">
-        <Divider side="right" />
-        <motion.h2
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false }}
-          transition={{ duration: 0.8 }}
-        >
-          Happy Clients
-        </motion.h2>
-        <div className="m-testimonials__track">
-          {Array.from({ length: 4 }).map((_, index) => (
-            <article className={index === 0 || index === 3 ? "is-muted" : ""} key={index}>
-              <span className="m-testimonials__avatar" />
-              <p>{testimonial}</p>
-              <strong>Maya Rahman</strong>
-              <small>Founder, Mora Living</small>
-            </article>
-          ))}
-        </div>
-      </section>
+      <MobileTestimonials />
 
       <section className="m-faq">
         <Divider side="left" />
