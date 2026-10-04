@@ -728,7 +728,7 @@ button {
   margin-left: clamp(2rem, 6vw, 6rem);
   top: clamp(1rem, 2vw, 2.5rem);
   width: clamp(18rem, 24vw, 24rem);
-  height: clamp(10.5rem, 13.5vw, 13.5rem);
+  height: clamp(15.5rem, 20.5vw, 20.5rem);
   overflow: hidden;
 }
 

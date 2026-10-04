@@ -67,7 +67,7 @@ function IntroOverlay() {
     return () => window.clearTimeout(timeout)
   }, [reduceMotion])
 
-  const offsetX = isMobile ? -45 : -100
+  const offsetX = isMobile ? -75 : -100
 
   return (
     <AnimatePresence>
