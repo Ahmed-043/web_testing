@@ -441,7 +441,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  gap: 15px;
+  gap: 25px;
 }
 
 
@@ -541,22 +541,6 @@ button {
   gap: 1rem;
   width: max-content;
   padding: 0 clamp(1.25rem, 8vw, 8rem);
-  animation: marquee 50s linear infinite;
-}
-
-.testimonial-viewport:hover .testimonial-track,
-.testimonial-viewport.is-dragging .testimonial-track {
-  animation-play-state: paused;
-}
-
-@keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-
-  100% {
-    transform: translateX(-50%);
-  }
 }
 
 .testimonial-card {
@@ -1210,12 +1194,6 @@ footer > div {
     width: max-content;
     gap: 0.85rem;
     padding: 0 1.5rem;
-    animation: marquee 40s linear infinite;
-  }
-
-  .m-testimonial-viewport:hover .m-testimonials__track,
-  .m-testimonial-viewport.is-dragging .m-testimonials__track {
-    animation-play-state: paused;
   }
 
   .m-testimonials__track article {

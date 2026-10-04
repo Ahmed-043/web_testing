@@ -23,8 +23,30 @@ const faqItems = [
   "Can you support an existing brand or project?",
 ]
 
-const testimonial =
-  "Maram has a rare ability to step into a messy idea, understand what actually matters, and give it direction. She challenged some of our assumptions — and the result was far stronger than what we originally imagined."
+const testimonials = [
+  {
+    quote: "Maram has a rare ability to step into a messy idea, understand what actually matters, and give it direction. She challenged some of our assumptions — and the result was far stronger than what we originally imagined.",
+    name: "Maya Rahman",
+    title: "Founder, Mora Living"
+  },
+  {
+    quote: "Working with Maram redefined our spatial and brand identity. Her intersection of architecture and strategic design brought clarity and depth to every single corner of our project.",
+    name: "Tariq Al-Mansoor",
+    title: "Managing Director, Studio V"
+  },
+  {
+    quote: "Clarity before commitment isn't just a tagline for Maram; it's how she operates. She brought absolute precision, elegance, and purpose to our architectural vision.",
+    name: "Elena Rostova",
+    title: "Principal Architect, Atelier Er"
+  },
+  {
+    quote: "An exceptional strategist and creative mind. She streamlined our complex developmental hurdles into a cohesive, beautifully structured roadmap.",
+    name: "Karim Zaki",
+    title: "Creative Director, Urban Edge"
+  }
+]
+
+const duplicatedTestimonials = [...testimonials, ...testimonials, ...testimonials]
 
 function IntroOverlay() {
   const reduceMotion = useReducedMotion()
@@ -320,17 +342,51 @@ function Services() {
 }
 
 function Testimonials() {
-  const cards = Array.from({ length: 5 })
-  const duplicatedCards = [...cards, ...cards]
   const viewportRef = useRef<HTMLDivElement>(null)
   const isDragging = useRef(false)
+  const isPaused = useRef(false)
   const startX = useRef(0)
   const scrollLeftStart = useRef(0)
-  const [isDraggingState, setIsDraggingState] = useState(false)
+
+  useEffect(() => {
+    const viewport = viewportRef.current
+    if (!viewport) return
+
+    const singleSetWidth = viewport.scrollWidth / 3
+    viewport.scrollLeft = singleSetWidth
+
+    let animationFrameId: number
+
+    const autoScroll = () => {
+      if (!isPaused.current && !isDragging.current) {
+        viewport.scrollLeft += 0.8
+        if (viewport.scrollLeft >= singleSetWidth * 2) {
+          viewport.scrollLeft -= singleSetWidth
+        } else if (viewport.scrollLeft <= 0) {
+          viewport.scrollLeft += singleSetWidth
+        }
+      }
+      animationFrameId = requestAnimationFrame(autoScroll)
+    }
+
+    animationFrameId = requestAnimationFrame(autoScroll)
+    return () => cancelAnimationFrame(animationFrameId)
+  }, [])
+
+  const handleScroll = () => {
+    const viewport = viewportRef.current
+    if (!viewport) return
+    const singleSetWidth = viewport.scrollWidth / 3
+    if (viewport.scrollLeft >= singleSetWidth * 2) {
+      viewport.scrollLeft -= singleSetWidth
+    } else if (viewport.scrollLeft <= 0) {
+      viewport.scrollLeft += singleSetWidth
+    }
+  }
 
   const handlePointerDown = (e: React.PointerEvent) => {
     isDragging.current = true
-    setIsDraggingState(true)
+    isPaused.current = true
     startX.current = e.clientX
     if (viewportRef.current) {
       scrollLeftStart.current = viewportRef.current.scrollLeft
@@ -348,7 +404,19 @@ function Testimonials() {
 
   const handlePointerUp = (e: React.PointerEvent) => {
     isDragging.current = false
-    setIsDraggingState(false)
+    const viewport = viewportRef.current
+    if (viewport) {
+      const rect = viewport.getBoundingClientRect()
+      const isStillHovered =
+        e.clientX >= rect.left &&
+        e.clientX <= rect.right &&
+        e.clientY >= rect.top &&
+        e.clientY <= rect.bottom
+      isPaused.current = isStillHovered
+    } else {
+      isPaused.current = false
+    }
+
     try {
       (e.target as HTMLElement).releasePointerCapture(e.pointerId)
     } catch {}
@@ -359,21 +427,30 @@ function Testimonials() {
       <Divider side="right" />
       <h2>Happy Clients</h2>
       <div
-        className={`testimonial-viewport${isDraggingState ? " is-dragging" : ""}`}
+        className="testimonial-viewport"
         ref={viewportRef}
+        onScroll={handleScroll}
+        onMouseEnter={() => {
+          isPaused.current = true
+        }}
+        onMouseLeave={() => {
+          if (!isDragging.current) {
+            isPaused.current = false
+          }
+        }}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
       >
         <div className="testimonial-track">
-          {duplicatedCards.map((_, index) => (
+          {duplicatedTestimonials.map((item, index) => (
             <article className="testimonial-card" key={index}>
               <span className="testimonial-card__avatar" />
-              <p>{testimonial}</p>
+              <p>{item.quote}</p>
               <div>
-                <strong>Maya Rahman</strong>
-                <span>Founder, Mora Living</span>
+                <strong>{item.name}</strong>
+                <span>{item.title}</span>
               </div>
             </article>
           ))}
@@ -384,17 +461,51 @@ function Testimonials() {
 }
 
 function MobileTestimonials() {
-  const cards = Array.from({ length: 4 })
-  const duplicatedCards = [...cards, ...cards]
   const viewportRef = useRef<HTMLDivElement>(null)
   const isDragging = useRef(false)
+  const isPaused = useRef(false)
   const startX = useRef(0)
   const scrollLeftStart = useRef(0)
-  const [isDraggingState, setIsDraggingState] = useState(false)
+
+  useEffect(() => {
+    const viewport = viewportRef.current
+    if (!viewport) return
+
+    const singleSetWidth = viewport.scrollWidth / 3
+    viewport.scrollLeft = singleSetWidth
+
+    let animationFrameId: number
+
+    const autoScroll = () => {
+      if (!isPaused.current && !isDragging.current) {
+        viewport.scrollLeft += 0.8
+        if (viewport.scrollLeft >= singleSetWidth * 2) {
+          viewport.scrollLeft -= singleSetWidth
+        } else if (viewport.scrollLeft <= 0) {
+          viewport.scrollLeft += singleSetWidth
+        }
+      }
+      animationFrameId = requestAnimationFrame(autoScroll)
+    }
+
+    animationFrameId = requestAnimationFrame(autoScroll)
+    return () => cancelAnimationFrame(animationFrameId)
+  }, [])
+
+  const handleScroll = () => {
+    const viewport = viewportRef.current
+    if (!viewport) return
+    const singleSetWidth = viewport.scrollWidth / 3
+    if (viewport.scrollLeft >= singleSetWidth * 2) {
+      viewport.scrollLeft -= singleSetWidth
+    } else if (viewport.scrollLeft <= 0) {
+      viewport.scrollLeft += singleSetWidth
+    }
+  }
 
   const handlePointerDown = (e: React.PointerEvent) => {
     isDragging.current = true
-    setIsDraggingState(true)
+    isPaused.current = true
     startX.current = e.clientX
     if (viewportRef.current) {
       scrollLeftStart.current = viewportRef.current.scrollLeft
@@ -412,7 +523,19 @@ function MobileTestimonials() {
 
   const handlePointerUp = (e: React.PointerEvent) => {
     isDragging.current = false
-    setIsDraggingState(false)
+    const viewport = viewportRef.current
+    if (viewport) {
+      const rect = viewport.getBoundingClientRect()
+      const isStillHovered =
+        e.clientX >= rect.left &&
+        e.clientX <= rect.right &&
+        e.clientY >= rect.top &&
+        e.clientY <= rect.bottom
+      isPaused.current = isStillHovered
+    } else {
+      isPaused.current = false
+    }
+
     try {
       (e.target as HTMLElement).releasePointerCapture(e.pointerId)
     } catch {}
@@ -430,20 +553,29 @@ function MobileTestimonials() {
         Happy Clients
       </motion.h2>
       <div
-        className={`m-testimonial-viewport${isDraggingState ? " is-dragging" : ""}`}
+        className="m-testimonial-viewport"
         ref={viewportRef}
+        onScroll={handleScroll}
+        onMouseEnter={() => {
+          isPaused.current = true
+        }}
+        onMouseLeave={() => {
+          if (!isDragging.current) {
+            isPaused.current = false
+          }
+        }}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
       >
         <div className="m-testimonials__track">
-          {duplicatedCards.map((_, index) => (
+          {duplicatedTestimonials.map((item, index) => (
             <article key={index}>
               <span className="m-testimonials__avatar" />
-              <p>{testimonial}</p>
-              <strong>Maya Rahman</strong>
-              <small>Founder, Mora Living</small>
+              <p>{item.quote}</p>
+              <strong>{item.name}</strong>
+              <small>{item.title}</small>
             </article>
           ))}
         </div>
